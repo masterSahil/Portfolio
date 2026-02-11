@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { 
-  Home, 
-  Briefcase, 
-  Mail, 
-  Terminal, 
-  Download 
-} from "lucide-react";
+import {  Home,  Briefcase,  Mail,  Terminal,  Download } from "lucide-react";
 
-// Import your resume file here
 import resume from '../assets/resume/resume.pdf'; 
 
 const navItems = [
@@ -34,9 +27,7 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ======================================================= */}
-      {/* DESKTOP NAVIGATION (No Changes)           */}
-      {/* ======================================================= */}
+      {/* DESKTOP NAVIGATION */}
       <div className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-3xl">
         <nav className="w-full px-2 py-2 rounded-full border border-white/10 bg-black/60 backdrop-blur-xl shadow-lg shadow-green-900/10 flex items-center justify-between">
           
@@ -51,10 +42,8 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Links */}
-          <ul 
-            className="flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/5"
-            onMouseLeave={() => setHoveredTab(null)}
-          >
+          <ul className="flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/5"
+            onMouseLeave={() => setHoveredTab(null)} >
             {navItems.map((item) => {
               const isHovered = hoveredTab === item.name;
               const isActive = activeTab === item.name;
@@ -84,13 +73,10 @@ const Navbar = () => {
             })}
           </ul>
 
-          {/* Download Resume Button (Desktop) */}
+          {/* Download Resume Button */}
           <div className="pr-2">
-            <a 
-              href={resume}
-              download="Sahil_Master_Resume.pdf"
-              className="flex items-center gap-2 px-5 py-2 rounded-full bg-white text-black text-sm font-bold hover:bg-green-400 transition-colors duration-300 group"
-            >
+            <a href={resume} download="Sahil_Master_Resume.pdf"
+              className="flex items-center gap-2 px-5 py-2 rounded-full bg-white text-black text-sm font-bold hover:bg-green-400 transition-colors duration-300 group" >
               <span>Resume</span>
               <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
             </a>
@@ -98,9 +84,7 @@ const Navbar = () => {
         </nav>
       </div>
 
-      {/* ======================================================= */}
-      {/* MOBILE NAVIGATION (Top Bar)               */}
-      {/* ======================================================= */}
+      {/* MOBILE NAVIGATION */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50">
         <motion.nav 
           initial={{ y: -100 }}
@@ -139,7 +123,7 @@ const Navbar = () => {
                       <Icon className="w-5 h-5" />
                     </div>
 
-                    {/* Active Indicator (Small Dot/Line below) */}
+                    {/* Active Indicator  */}
                     {isActive && (
                       <motion.div 
                         layoutId="mobile-active-indicator"
@@ -152,12 +136,10 @@ const Navbar = () => {
             </div>
 
             {/* Resume Button (Mobile - Compact) */}
-            <a 
-              href={resume}
+            <a  href={resume}
               download="Sahil_Master_Resume.pdf"
               className="p-2 rounded-full bg-white/10 text-white hover:bg-green-500 hover:text-black transition-all duration-300 border border-white/10"
-              aria-label="Download Resume"
-            >
+              aria-label="Download Resume" >
               <Download className="w-4 h-4" />
             </a>
           </div>

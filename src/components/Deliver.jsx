@@ -23,7 +23,7 @@ function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-// --- Service Data (Fixed Mapping Logic) ---
+// --- Service Data ---
 const SERVICES = [
   {
     id: 1,
@@ -31,12 +31,10 @@ const SERVICES = [
     description: "Full-stack MERN applications built for scalability. I craft responsive, accessible, and dynamic user experiences with modern architecture.",
     icon: Monitor,
     bgIcon: Globe,
-    // Explicit tailwind classes for the theme
     themeColor: "text-green-400",
     themeBorder: "group-hover:border-green-500/50",
     themeShadow: "group-hover:shadow-[0_0_40px_rgba(74,222,128,0.2)]",
     themeBg: "group-hover:bg-green-500",
-    // Specific tags for THIS service
     features: [
       { icon: Code2, txt: "React" },
       { icon: Database, txt: "Node" },
@@ -78,7 +76,6 @@ const SERVICES = [
 ];
 
 const Deliver = () => {
-  // --- Global Spotlight Logic (Section Level Only) ---
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -91,23 +88,20 @@ const Deliver = () => {
   return (
     <section 
       onMouseMove={handleMouseMove}
-      className="relative w-full bg-[#020602] py-24 overflow-hidden group/section"
+      className="relative w-full bg-[#020602] py-16 md:py-24 overflow-hidden group/section"
     >
       {/* --- Dynamic Green Grid Background --- */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* 1. Ambient Bottom Light */}
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-green-900/20 rounded-full blur-[128px]" />
+        <div className="absolute bottom-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-green-900/20 rounded-full blur-[80px] md:blur-[128px]" />
         
-        {/* 2. Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem] md:bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
 
-        {/* 3. The Interactive Flashlight Overlay */}
         <motion.div
           className="absolute inset-0 opacity-0 group-hover/section:opacity-100 transition-opacity duration-500"
           style={{
             background: useMotionTemplate`
               radial-gradient(
-                800px circle at ${mouseX}px ${mouseY}px,
+                600px circle at ${mouseX}px ${mouseY}px,
                 rgba(74, 222, 128, 0.1), 
                 rgba(34, 197, 94, 0.05),
                 transparent 80%
@@ -119,7 +113,8 @@ const Deliver = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        {/* FIX: Changed items-end to items-start for mobile, md:items-end for desktop */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6">
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -131,46 +126,27 @@ const Deliver = () => {
                <span className="w-8 h-[2px] bg-green-500"></span>
                <span className="text-green-400 font-bold tracking-widest text-sm uppercase">What I Deliver</span>
             </div>
-            <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               High-Impact Services <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-600">
                 For Modern Brands.
               </span>
             </h2>
           </motion.div>
-
-          <motion.a 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            href="#" 
-            className="hidden md:flex items-center gap-2 text-slate-400 hover:text-green-400 transition-colors group/link"
-          >
-            <span className="font-mono text-sm">View All Services</span>
-            <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:-translate-y-1 group-hover/link:translate-x-1" />
-          </motion.a>
         </div>
 
-        {/* Services Grid (Mapped correctly) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {SERVICES.map((service, index) => (
             <ServiceCard key={service.id} service={service} index={index} />
           ))}
-        </div>
-
-        {/* Mobile View All Link */}
-        <div className="md:hidden mt-12 text-center">
-          <a className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors" href="#">
-             View All Services <ArrowUpRight className="w-4 h-4" />
-          </a>
         </div>
       </div>
     </section>
   );
 };
 
-// --- Standard Service Card Component (No 3D) ---
+// --- Responsive Service Card Component ---
 const ServiceCard = ({ service, index }) => {
   return (
     <motion.div
@@ -178,10 +154,11 @@ const ServiceCard = ({ service, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative h-[420px] w-full"
+      // FIX: Changed h-[420px] to min-h-[400px] h-auto to prevent overflow on mobile
+      className="group relative w-full h-auto min-h-[380px] md:h-[420px]"
     >
       <div className={cn(
-        "relative h-full w-full rounded-2xl bg-[#0f1210] border p-8 flex flex-col justify-between transition-all duration-300 overflow-hidden",
+        "relative h-full w-full rounded-2xl bg-[#0f1210] border px-6 py-8 md:p-8 flex flex-col justify-between transition-all duration-300 overflow-hidden",
         "border-white/5",
         service.themeBorder, 
         service.themeShadow
@@ -191,44 +168,47 @@ const ServiceCard = ({ service, index }) => {
         
         {/* Giant Abstract Icon Background */}
         <div className="absolute -right-12 -top-12 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-           <service.bgIcon className="w-64 h-64 text-white rotate-12" />
+           {/* FIX: Ensure icon is treated as a component */}
+           <service.bgIcon className="w-48 h-48 md:w-64 md:h-64 text-white rotate-12" />
         </div>
 
         {/* --- Card Content --- */}
         <div className="relative z-10">
           {/* Icon Box */}
           <div className={cn(
-            "w-16 h-16 rounded-xl flex items-center justify-center mb-8 transition-all duration-300",
+            "w-14 h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center mb-6 md:mb-8 transition-all duration-300",
             "bg-white/5 border border-white/10",
-            service.themeBg, // Active bg color on hover
+            service.themeBg,
             "group-hover:scale-110"
           )}>
             <service.icon className={cn(
-              "w-8 h-8 transition-colors duration-300",
+              "w-7 h-7 md:w-8 md:h-8 transition-colors duration-300",
               service.themeColor,
               "group-hover:text-black"
             )} />
           </div>
 
-          <h4 className="text-2xl font-bold text-white mb-4">{service.title}</h4>
+          <h4 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">{service.title}</h4>
           <p className="text-slate-400 leading-relaxed text-sm">
             {service.description}
           </p>
         </div>
 
-        {/* Bottom Action (Fixed Tag Mapping) */}
-        <div className="relative z-10 pt-8 mt-auto">
-           <div className="flex flex-wrap gap-3">
-              {/* Map specific features for THIS service only */}
-              {service.features.map((feature, i) => (
-                <div key={i} className={cn(
-                  "flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-wider text-slate-300 transition-colors",
-                  `group-hover:border-${service.themeColor.split('-')[1]}-500/30 group-hover:text-white`
-                )}>
-                  <feature.icon className={cn("w-3 h-3", service.themeColor)} />
-                  {feature.txt}
-                </div>
-              ))}
+        {/* Bottom Action */}
+        <div className="relative z-10 pt-6 md:pt-8 mt-auto">
+           <div className="flex flex-wrap gap-2 md:gap-3">
+             {service.features.map((feature, i) => {
+               const Icon = feature.icon; // Extract icon component for safe rendering
+               return (
+                 <div key={i} className={cn(
+                   "flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-xs font-bold uppercase tracking-wider text-slate-300 transition-colors",
+                   `group-hover:border-${service.themeColor.split('-')[1]}-500/30 group-hover:text-white`
+                 )}>
+                   <Icon className={cn("w-3 h-3", service.themeColor)} />
+                   {feature.txt}
+                 </div>
+               );
+             })}
            </div>
         </div>
 

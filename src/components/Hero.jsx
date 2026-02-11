@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
+import { 
+  motion, 
+  useMotionTemplate, 
+  useMotionValue, 
+  useSpring, 
+  useTransform, 
+  animate 
+} from "framer-motion";
 import { Github, Linkedin, Mail, ArrowRight, Server, Smartphone, Cpu, Terminal } from "lucide-react";
 
 import profile from '../assets/Image/Home/Hero/profile.png';
@@ -16,10 +23,43 @@ const Hero = () => {
     mouseY.set(clientY - top);
   };
 
+  // --- Animation Variants ---
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" } 
+    },
+  };
+
+  const rightSideVariants = {
+    hidden: { opacity: 0, x: 50, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      scale: 1, 
+      transition: { duration: 0.8, ease: "easeOut", delay: 0.4 } 
+    },
+  };
+
+  const navigate = useNavigate()
+
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="relative min-h-dvh w-full overflow-hidden bg-[#020602] text-white flex items-center justify-center pt-28 pb-12 selection:bg-green-500/30"
+      className="relative min-h-dvh w-full overflow-hidden bg-[#020602] text-white flex items-center justify-center pt-24 pb-12 sm:pt-32 sm:pb-16 selection:bg-green-500/30"
     >
       {/* --- 1. Base Background Layers --- */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -27,12 +67,13 @@ const Hero = () => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[2rem_2rem] md:bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
       </div>
 
-      {/* --- 2. HUGE BACKGROUND NAME --- */}
+      {/* --- 2. HUGE BACKGROUND NAME (Animated) --- */}
       <div className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden pointer-events-none">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
           className="whitespace-nowrap"
         >
           <h1
@@ -64,24 +105,19 @@ const Hero = () => {
 
       {/* --- 4. Main Content --- */}
       <div className="container relative z-10 px-4 sm:px-6 mx-auto max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
-          {/* Left Column */}
+          {/* TEXT COLUMN */}
           <motion.div
+            variants={containerVariants}
             initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.15 }
-              }
-            }}
-            className="flex flex-col gap-6 lg:pr-10 order-1 lg:order-1 items-center lg:items-start text-center lg:text-left"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }} // amount ensures 20% is visible before triggering
+            className="flex flex-col gap-6 lg:pr-10 order-2 lg:order-1 items-center lg:items-start text-center lg:text-left mt-8 lg:mt-0"
           >
             {/* Availability Badge */}
             <motion.div
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              variants={itemVariants}
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-green-500/30 bg-green-500/10 w-fit backdrop-blur-sm shadow-[0_0_15px_rgba(34,197,94,0.2)]"
             >
               <span className="relative flex h-2 w-2">
@@ -94,7 +130,7 @@ const Hero = () => {
             {/* Headline */}
             <div className="space-y-4">
               <motion.h1
-                variants={{ hidden: { opacity: 0, x: -30 }, visible: { opacity: 1, x: 0 } }}
+                variants={itemVariants}
                 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight"
               >
                 Building <span className="text-transparent bg-clip-text bg-linear-to-r from-green-300 via-green-400 to-emerald-600">Scalable</span> <br />
@@ -102,7 +138,7 @@ const Hero = () => {
               </motion.h1>
 
               <motion.div
-                variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+                variants={itemVariants}
                 className="flex items-center justify-center lg:justify-start gap-2 text-slate-300 text-base sm:text-xl font-mono h-8 min-h-8"
               >
                 <span className="text-green-500 font-bold">{`>`}</span>
@@ -116,7 +152,7 @@ const Hero = () => {
             </div>
 
             <motion.p
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              variants={itemVariants}
               className="text-slate-400 text-sm sm:text-base lg:text-lg leading-relaxed max-w-xl"
             >
               I architect robust <span className="text-slate-200 font-medium">Backend</span> systems and build high-performance <span className="text-slate-200 font-medium">React Native</span> applications, integrated with next-gen AI automation.
@@ -124,24 +160,26 @@ const Hero = () => {
 
             {/* Buttons */}
             <motion.div
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4 w-full"
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4 w-full"
             >
+              {/* View Projects */}
               <motion.button
+                onClick={()=>navigate('/projects')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex-1 sm:flex-none group relative flex items-center justify-center gap-3 overflow-hidden rounded-xl bg-green-600 px-8 py-3.5 text-white transition-all duration-300 hover:bg-green-500 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)]"
+                className="w-full sm:w-auto group relative flex items-center justify-center gap-3 overflow-hidden rounded-xl bg-green-600 px-8 py-3.5 text-white transition-all duration-300 hover:bg-green-500 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)]"
               >
                 <span className="font-bold tracking-wide text-sm sm:text-base">View Projects</span>
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </motion.button>
 
-              {/* --- 5. Contact Button (Changed from Download CV) --- */}
-              <Link to="/contact">
+              {/* Contact Me */}
+              <Link to="/contact" className="w-full sm:w-auto">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex-1 sm:flex-none group flex items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 text-white transition-all duration-300 hover:bg-white/10 backdrop-blur-md cursor-pointer w-full"
+                  className="w-full group flex items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 text-white transition-all duration-300 hover:bg-white/10 backdrop-blur-md cursor-pointer"
                 >
                   <Mail className="w-5 h-5 text-green-400" />
                   <span className="font-bold tracking-wide text-sm sm:text-base">Contact Me</span>
@@ -151,12 +189,16 @@ const Hero = () => {
 
             {/* Stats */}
             <motion.div
-              variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-              className="flex items-center gap-6 sm:gap-8 pt-8 border-t border-white/10 mt-4 w-full justify-center lg:justify-start"
+              variants={itemVariants}
+              className="flex items-center gap-8 sm:gap-12 pt-8 border-t border-white/10 mt-4 w-full justify-center lg:justify-start"
             >
-              <Stat number="20+" label="Projects" />
+              <Stat 
+                value={<CountUp from={0} to={20} />} 
+                suffix="+" 
+                label="Projects" 
+              />
               <div className="w-px h-10 bg-white/10"></div>
-              <Stat number="BCA" label="Student" />
+              <Stat value="BCA" label="Student" />
 
               <div className="flex gap-4 ml-auto lg:ml-0">
                 <SocialIcon icon={Github} target="_blank" rel="noopener noreferrer" href="https://github.com/masterSahil" />
@@ -165,20 +207,30 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column */}
+          {/* IMAGE COLUMN */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, x: 50 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.5, type: "spring" }}
-            className="relative order-2 lg:order-2 flex flex-col items-center lg:items-end mt-8 lg:mt-0"
+            variants={rightSideVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="relative order-1 lg:order-2 flex flex-col items-center lg:items-end"
           >
             <ProfileCard />
 
-            <div className="w-full max-w-md mt-6 flex flex-wrap justify-center sm:justify-between gap-3">
-              <TechBadge icon={Smartphone} text="React Native" delay={0.8} />
-              <TechBadge icon={Server} text="Backend Arc" delay={0.9} />
-              <TechBadge icon={Cpu} text="AI Integrated" delay={1.0} />
-            </div>
+            {/* Tech Badges with their own stagger */}
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.8 } }
+              }}
+              className="w-full max-w-md mt-6 flex flex-wrap justify-center sm:justify-between gap-3"
+            >
+              <TechBadge icon={Smartphone} text="React Native" />
+              <TechBadge icon={Server} text="Backend Arc" />
+              <TechBadge icon={Cpu} text="AI Integrated" />
+            </motion.div>
           </motion.div>
 
         </div>
@@ -189,24 +241,36 @@ const Hero = () => {
 
 // --- Helper Components ---
 
-// *** HIGH PERFORMANCE 3D PROFILE CARD (PRESERVED) ***
+// *** CountUp Animation ***
+const CountUp = ({ from = 0, to, duration = 2 }) => {
+  const count = useMotionValue(from);
+  const rounded = useTransform(count, (latest) => Math.round(latest));
+  // Use a ref to ensure we only trigger the animation when in view
+  const ref = useRef(null);
+  const isInView = React.useMemo(() => true, []); // We rely on parent 'whileInView', but to be safe we can use controls
+
+  useEffect(() => {
+    // This simple logic works because the parent holds the 'whileInView' state
+    // But for a true scroll trigger on just the number:
+    const controls = animate(count, to, { duration: duration, ease: "easeOut" });
+    return controls.stop;
+  }, [count, to, duration]);
+
+  return <motion.span ref={ref}>{rounded}</motion.span>;
+};
+
+// *** Profile Card ***
 const ProfileCard = () => {
   const cardRef = useRef(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Physics Configuration
   const springConfig = { stiffness: 100, damping: 15 };
-
-  // Tilt Values
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], ["12deg", "-12deg"]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], ["-12deg", "12deg"]), springConfig);
-
-  // Parallax "Floating" Values
   const codeX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), springConfig);
   const codeY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-12, 12]), springConfig);
 
-  // Glossy Glare/Sheen Effect
   const glareX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
   const glareY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
   const glareBackground = useMotionTemplate`radial-gradient(
@@ -234,7 +298,7 @@ const ProfileCard = () => {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full max-w-[90%] sm:max-w-md aspect-4/5 z-20 group/card cursor-pointer"
+      className="relative w-full max-w-[85%] sm:max-w-md aspect-4/5 z-20 group/card cursor-pointer mx-auto lg:mr-0"
       style={{ perspective: "1200px" }}
     >
       <motion.div
@@ -249,7 +313,6 @@ const ProfileCard = () => {
           className="absolute inset-0 z-50 pointer-events-none opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 mix-blend-overlay"
           style={{ background: glareBackground }}
         />
-
         {/* Top Bar */}
         <div className="absolute top-0 left-0 right-0 h-10 sm:h-12 bg-black/60 backdrop-blur-md flex items-center justify-between px-4 border-b border-white/5 z-30">
           <div className="flex gap-2">
@@ -271,10 +334,7 @@ const ProfileCard = () => {
             className="w-full h-full object-cover grayscale-20% group-hover/card:grayscale-0 transition-all duration-500"
             style={{ scale: 1.15 }}
           />
-
-          {/* Option 2: Solid Hover Darken Effect (Uncomment to use) */}
-          <div className="absolute inset-0 bg-black/35 group-hover/card:bg-black/25 transition-colors duration-500 z-10" />
-
+           <div className="absolute inset-0 bg-black/35 group-hover/card:bg-black/25 transition-colors duration-500 z-10" />
           <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent z-10" />
 
           {/* 3D Floating Code Snippet */}
@@ -341,23 +401,33 @@ const Typewriter = ({ words, typingSpeed = 150, deletingSpeed = 100, pauseTime =
   );
 };
 
-const Stat = ({ number, label }) => (
+// Modified Stat to accept "value" (for counter) and "suffix"
+const Stat = ({ value, suffix, label }) => (
   <motion.div whileHover={{ scale: 1.05 }} className="text-center sm:text-left cursor-default">
-    <p className="text-xl sm:text-2xl font-bold text-white">{number}</p>
+    <div className="flex items-center justify-center sm:justify-start gap-1">
+      <p className="text-xl sm:text-2xl font-bold text-white flex items-center">
+        {value}{suffix}
+      </p>
+    </div>
     <p className="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider font-semibold">{label}</p>
   </motion.div>
 );
 
 const SocialIcon = ({ icon: Icon, ...props }) => (
-  <a  {...props} // This spreads href, target, rel, etc. onto the <a> tag
+  <a  {...props} 
     className="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:bg-green-600 hover:border-green-600 transition-all duration-300 hover:scale-110" >
     <Icon className="w-5 h-5" />
   </a>
 );
 
-const TechBadge = ({ icon: Icon, text, delay }) => (
+// Updated TechBadge to respond to Parent Stagger
+const TechBadge = ({ icon: Icon, text }) => (
   <motion.div
-    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: delay, type: "spring" }} whileHover={{ scale: 1.05, y: -5 }}
+    variants={{
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 20 } }
+    }}
+    whileHover={{ scale: 1.05, y: -5 }}
     className="flex-1 min-w-25 group flex items-center justify-center gap-2 px-3 py-3 rounded-xl border border-white/5 bg-[#0f172a]/50 backdrop-blur-md hover:bg-green-900/20 hover:border-green-500/30 transition-all duration-300 cursor-default"
   >
     <Icon className="w-4 h-4 text-green-400 group-hover:text-green-300 transition-colors" />
