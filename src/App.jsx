@@ -1,22 +1,43 @@
-import './App.css'
-import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom'
-import Home from './pages/Home'
-import Projects from './pages/Projects'
-import ContactPage from './pages/Contact'
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import ContactPage from './pages/Contact';
+import NotFoundPage from './pages/NotFoundPage';
+import PageLoader from './components/Loader';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const handleLoad = () => {
+      setIsLoading(false);
+    };
+
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+      
+      return () => window.removeEventListener('load', handleLoad);
+    }
+  }, []);
 
   return (
     <>
-      <BrowserRouter >
+      <PageLoader isLoading={isLoading} />
+
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

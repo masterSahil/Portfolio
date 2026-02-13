@@ -48,7 +48,7 @@ const ContactComponent = () => {
             Follows the mouse cursor.
         */}
         <motion.div
-          className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
             background: useMotionTemplate`
               radial-gradient(
@@ -76,7 +76,7 @@ const ContactComponent = () => {
                 ]
             }}
             transition={{
-                duration: 10,
+                duration: 5,
                 repeat: Infinity,
                 ease: "linear"
             }}
@@ -91,8 +91,6 @@ const ContactComponent = () => {
     </div>
   );
 };
-
-// ... [Keep HeaderSection, ContactFormSection, SocialButton, ContactItem, GreenInput, SubmitButton EXACTLY as they were] ...
 
 const HeaderSection = () => (
     <motion.div 
@@ -197,7 +195,7 @@ const HeaderSection = () => (
                   />
               </div>
               
-              <div className="w-full h-[1px] bg-white/5 my-2 relative z-10" />
+              <div className="w-full h-px bg-white/5 my-2 relative z-10" />
   
               {/* Social Buttons */}
               <div className="grid grid-cols-1 gap-3 mt-auto relative z-10">
@@ -229,7 +227,7 @@ const HeaderSection = () => (
                   className="relative bg-[#0a0f0b] rounded-xl p-6 md:p-8 border border-white/10 h-full flex flex-col group/form overflow-hidden"
               >
                   {/* Subtle Scanline on Form Hover */}
-                  <div className="absolute top-0 left-0 w-full h-[1px] bg-emerald-500/30 -translate-x-full group-hover/form:animate-[scan_3s_linear_infinite] opacity-0 group-hover/form:opacity-100 pointer-events-none" />
+                  <div className="absolute top-0 left-0 w-full h-px bg-emerald-500/30 -translate-x-full group-hover/form:animate-[scan_3s_linear_infinite] opacity-0 group-hover/form:opacity-100 pointer-events-none" />
   
                   <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
                       <GreenInput 
@@ -237,7 +235,7 @@ const HeaderSection = () => (
                           value={formData.name} 
                           error={errors.name}
                           onChange={(e) => handleChange('name', e.target.value)}
-                          placeholder="Sahil"
+                          placeholder="John Doe"
                       />
                       <GreenInput 
                           label="Email" 
@@ -245,7 +243,7 @@ const HeaderSection = () => (
                           value={formData.email} 
                           error={errors.email}
                           onChange={(e) => handleChange('email', e.target.value)}
-                          placeholder="sahil@example.com"
+                          placeholder="john@example.com"
                       />
                   </div>
   
@@ -259,7 +257,7 @@ const HeaderSection = () => (
                       />
                   </div>
   
-                  <div className="mb-8 flex-grow relative z-10">
+                  <div className="mb-8 grow relative z-10">
                       <GreenInput 
                           label="Message" 
                           textarea 
