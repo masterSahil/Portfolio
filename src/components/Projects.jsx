@@ -68,7 +68,7 @@ const PROJECTS = [
     tech: ["MongoDB", "Express", "React"],
     category: "Full Stack",
     repoUrl: "https://github.com/masterSahil/E-Shop",
-    liveUrl: "https://github.com/masterSahil/E-Shop"
+    liveUrl: "https://e-shop-pearl-gamma.vercel.app"
   },
   {
     id: 5,
