@@ -41,26 +41,26 @@ const TECH_STACK = [
   { name: "React", icon: Code2, level: "Advanced", color: "text-cyan-400" },
   
   // Mobile
-  { name: "React Native", icon: Smartphone, level: "Advanced", color: "text-blue-500" },
+  { name: "React Native", icon: Smartphone, level: "Intermediate", color: "text-blue-500" },
   { name: "Expo", icon: Layers, level: "Advanced", color: "text-white" },
   
   // Backend
-  { name: "Node.js", icon: Server, level: "Advanced", color: "text-green-500" },
+  { name: "Node.js", icon: Server, level: "Expert", color: "text-green-500" },
   { name: "Express.js", icon: Terminal, level: "Advanced", color: "text-white" },
   { name: "REST APIs", icon: Globe, level: "Expert", color: "text-emerald-400" },
   { name: "CRUD", icon: RefreshCcw, level: "Expert", color: "text-slate-300" },
   
   // Database
-  { name: "MongoDB", icon: Database, level: "Intermediate", color: "text-green-400" },
+  { name: "MongoDB", icon: Database, level: "Advanced", color: "text-green-400" },
   { name: "Firebase", icon: Flame, level: "Intermediate", color: "text-orange-500" },
-  // { name: "NoSQL", icon: Database, level: "Intermediate", color: "text-blue-300" },
+  { name: "Cloudinary", icon: Database, level: "Intermediate", color: "text-blue-300" },
   
   // Tools & Languages
-  { name: "Git/GitHub", icon: GitBranch, level: "Essential", color: "text-red-400" },
-  { name: "VS Code", icon: Monitor, level: "Editor", color: "text-blue-400" },
-  { name: "Postman", icon: Send, level: "Tool", color: "text-orange-500" },
-  { name: "Vercel", icon: Triangle, level: "Deploy", color: "text-white" },
-  { name: "C / C++", icon: Cpu, level: "Core", color: "text-blue-600" },
+  { name: "Git/GitHub", icon: GitBranch, level: "Advanced", color: "text-red-400" },
+  { name: "VS Code", icon: Monitor, level: "Expert", color: "text-blue-400" },
+  { name: "Postman", icon: Send, level: "Advanced", color: "text-orange-500" },
+  { name: "Vercel/Render", icon: Triangle, level: "Expert", color: "text-white" },
+  { name: "C / C++", icon: Cpu, level: "Advanced", color: "text-blue-600" },
 ];
 
 const DigitalArsenal = () => {

@@ -116,13 +116,13 @@ const Footer = () => {
                 icon={Linkedin}
                 href="https://www.linkedin.com/in/sahil-master/"
                 label="LinkedIn"
-                brandColor="hover:bg-[#0077b5] hover:border-[#0077b5] active:bg-[#0077b5] active:border-[#0077b5] active:text-white"
+                brandColor="hover:bg-[#042244] hover:border-[#0077b5] active:bg-[#0077b5] active:border-[#0077b5] active:text-white"
               >
                 <div className="w-48 bg-white rounded-xl overflow-hidden border border-white/10 shadow-xl">
-                    <div className="h-12 bg-[#0077b5] relative"></div>
+                    <div className="h-12 bg-[#042244] relative"></div>
                     <div className="p-3 relative -mt-6">
                       <div className="w-10 h-10 rounded-full bg-white border-2 border-white flex items-center justify-center mb-2 relative z-10 shadow-sm">
-                        <Linkedin className="w-6 h-6 text-[#0077b5]" />
+                        <Linkedin className="w-6 h-6 text-[#042244]" />
                       </div>
                       <h4 className="text-slate-900 text-sm font-bold">Sahil Master</h4>
                       <p className="text-slate-900 font-semibold text-[10px]">Full Stack Dev</p>
