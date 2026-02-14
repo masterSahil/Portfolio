@@ -227,9 +227,9 @@ const Hero = () => {
               }}
               className="w-full max-w-md mt-6 flex flex-wrap justify-center sm:justify-between gap-3"
             >
-              <TechBadge icon={Smartphone} text="React Native" />
-              <TechBadge icon={Server} text="Backend Arc" />
-              <TechBadge icon={Cpu} text="AI Integrated" />
+              <TechBadge icon={Smartphone} text="Native" />
+              <TechBadge icon={Server} text="Backend" />
+              <TechBadge icon={Cpu} text="AI" />
             </motion.div>
           </motion.div>
 
