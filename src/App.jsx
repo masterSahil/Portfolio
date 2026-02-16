@@ -36,7 +36,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-        <ChatWidget />
+        {/* <ChatWidget /> */}
       </BrowserRouter>
     </>
   );
