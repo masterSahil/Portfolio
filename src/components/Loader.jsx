@@ -41,10 +41,10 @@ const NexusLoader = ({ isLoading }) => {
       // 1. Site is ready, change text to "ACCESS GRANTED"
       setStatus("ACCESS GRANTED");
       
-      // 2. Wait 800ms for the user to read it, then open the gates
+      // 2. Wait 1400ms for the user to read it, then open the gates
       const timer = setTimeout(() => {
         setShow(false);
-      }, 800);
+      }, 1400);
       return () => clearTimeout(timer);
     }
   }, [isLoading]);

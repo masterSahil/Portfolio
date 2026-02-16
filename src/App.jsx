@@ -6,6 +6,7 @@ import Projects from './pages/Projects';
 import ContactPage from './pages/Contact';
 import NotFoundPage from './pages/NotFoundPage';
 import PageLoader from './components/Loader';
+import ChatWidget from './components/ChatWidget';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,6 +36,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <ChatWidget />
       </BrowserRouter>
     </>
   );
