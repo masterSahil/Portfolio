@@ -28,13 +28,13 @@ import img6 from '../assets/Image/Home/Projects/prj6.png'
 const PROJECTS = [
   {
     id: 1,
-    title: "AI Image Gen",
-    desc: "Text-to-image engine using Stable Diffusion.",
-    image: img1,
-    tech: ["HuggingFace", "React", "Vite"],
-    category: "AI",
-    repoUrl: "https://github.com/masterSahil/text-to-img-ai",
-    liveUrl: "https://text-to-img-ai-cyan.vercel.app/"
+    title: "Secure Vault Mobile App",
+    desc: "A cross-platform mobile vault application to securely store any kind of credentials.",
+    image: img6,
+    tech: ["React Native", "MongoDB", "Supabase", "Expo"],
+    category: "Mobile App",
+    repoUrl: "https://github.com/masterSahil/Vault-App",
+    liveUrl: "https://github.com/masterSahil/Vault-App"
   },
   {
     id: 2,
@@ -78,13 +78,13 @@ const PROJECTS = [
   },
   {
     id: 6,
-    title: "Secure Vault Mobile App",
-    desc: "A cross-platform mobile vault application to securely store any kind of credentials.",
-    image: img6,
-    tech: ["React Native", "MongoDB", "Supabase", "Expo"],
-    category: "Mobile App",
-    repoUrl: "https://github.com/masterSahil/Vault-App",
-    liveUrl: "https://github.com/masterSahil/Vault-App"
+    title: "AI Image Gen",
+    desc: "Text-to-image engine using Stable Diffusion.",
+    image: img1,
+    tech: ["HuggingFace", "React", "Vite"],
+    category: "AI",
+    repoUrl: "https://github.com/masterSahil/text-to-img-ai",
+    liveUrl: "https://text-to-img-ai-cyan.vercel.app/"
   }
 ];
 
