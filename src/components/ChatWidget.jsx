@@ -17,154 +17,201 @@ export default function ChatWidget() {
     const [inputValue, setInputValue] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef(null);
-
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
+    const [loadingProgress, setLoadingProgress] = useState(0);
+    const [loadingText, setLoadingText] = useState("Thinking...");
 
     useEffect(() => {
-        scrollToBottom();
-    }, [messages, isOpen, isLoading]);
-
-    const handleSendMessage = async (text) => {
-        const messageText = text || inputValue;
-        if (!messageText.trim()) return;
-
-        const userMsg = { id: Date.now(), text: messageText, sender: "user" };
-        setMessages((prev) => [...prev, userMsg]);
-        setInputValue("");
-        setIsLoading(true);
-
-        try {
-            const { data } = await axios.post(`${BACKEND_URL}/api/chat`, {message: userMsg.text});
-            const botResponse = data.reply;
-
-            setMessages((prev) => [...prev,{ id: Date.now() + 1, text: botResponse, sender: "bot" }]);
-        } catch (error) {
-            console.error("Chat Error:", error);
-
-            const errorText =
-                error.code === "ERR_NETWORK"
-                    ? "Connection Error: Backend unreachable (CORS / server offline)."
-                    : error.response?.data?.message || "Server error occurred.";
-
-            setMessages((prev) => [...prev, { id: Date.now() + 1, text: errorText, sender: "bot" }]);
-        } finally {
-            setIsLoading(false);
+        if (!isLoading) {
+            setLoadingProgress(0);
+            return;
         }
-    };
 
-    return (
-        <div className="fixed bottom-4 right-4 md:bottom-4 md:right-8 z-999 flex flex-col items-end font-sans">
-            <AnimatePresence mode="wait">
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                        className="
-                            mb-4 flex flex-col overflow-hidden relative
-                            w-[calc(100vw-40px)] 
-                            h-[65vh] 
-                            md:w-95 md:h-150 
-                            rounded-[10px] 
-                            bg-[#050505] 
-                            shadow-[0_0_50px_-10px_rgba(0,0,0,0.8)]
-                            border border-white/10 ring-1 ring-green-500/20
-                        "
-                    >
-                        {/* Header */}
-                        <div className="relative z-10 p-0 overflow-hidden bg-black/50 backdrop-blur-xl border-b border-white/5 shrink-0">
-                            <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-size-[16px_16px]"></div>
+        // Faux progress that slows down near the end
+        const progressInterval = setInterval(() => {
+            setLoadingProgress((prev) => {
+                const increment = prev < 50 ? 8 : prev < 80 ? 3 : prev < 98 ? 1 : 0.2;
+                const next = prev + increment;
+                return next >= 99 ? 99 : next; // Caps at 99% until real response
+            });
+        }, 300);
 
-                            <div className="flex justify-between items-center px-5 py-4 relative z-20">
-                                <div className="flex items-center gap-3">
-                                    <div className="relative w-10 h-10 rounded-xl bg-linear-to-br from-green-900/80 to-black border border-green-500/30 flex items-center justify-center shadow-[0_0_15px_-3px_rgba(34,197,94,0.3)]">
-                                        <Cpu size={20} className="text-green-400" />
-                                        <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                                        </span>
-                                    </div>
+        // Cycles through engaging texts
+        const texts = ["Thinking...", "Analyzing request...", "Generating response...", "Almost there..."];
+        let textIndex = 0;
+        const textInterval = setInterval(() => {
+            textIndex = (textIndex + 1) % texts.length;
+            setLoadingText(texts[textIndex]);
+        }, 3500);
 
-                                    <div className="flex flex-col">
-                                        <h3 className="text-transparent bg-clip-text bg-linear-to-r from-white via-green-100 to-green-400 font-bold text-[16px] tracking-wide">
-                                            SAHIL.AI
-                                        </h3>
-                                        <div className="flex items-center gap-2">
-                                            <Wifi size={10} className="text-green-500" />
-                                            <span className="text-[10px] font-mono text-green-600 tracking-wider">SYSTEM ONLINE</span>
-                                        </div>
-                                    </div>
-                                </div>
+        return () => {
+            clearInterval(progressInterval);
+            clearInterval(textInterval);
+        };
+    }, [isLoading]);
 
-                                <button
-                                    onClick={() => setIsOpen(false)}
-                                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition-all border border-transparent hover:border-red-500/30"
-                                >
-                                    <X size={18} />
-                                </button>
-                            </div>
-                            <div className="h-px w-full bg-linear-to-r from-transparent via-green-500/50 to-transparent opacity-50"></div>
-                        </div>
+        const scrollToBottom = () => {
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        };
 
-                        {/* Chat Area - flex-1 ensures it takes remaining height */}
-                        <div className="flex-1 overflow-y-auto p-4 md:p-5 space-y-6 custom-scrollbar bg-black/20 relative">
-                            {messages.map((msg, idx) => (
-                                <motion.div
-                                    key={msg.id}
-                                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    transition={{ duration: 0.3 }}
-                                    className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-                                >
-                                    {msg.sender === "bot" && (
-                                        <div className="w-8 h-8 rounded-full bg-black border border-green-500/30 flex items-center justify-center mr-3 mt-1 shadow-lg shrink-0">
-                                            <Terminal size={14} className="text-green-400" />
-                                        </div>
-                                    )}
+        useEffect(() => {
+            scrollToBottom();
+        }, [messages, isOpen, isLoading]);
 
-                                    {msg.sender === "system" ? (
-                                        <div className="w-full text-center">
-                                            <span className="text-[10px] text-green-500/30 font-mono tracking-[0.2em] uppercase">
-                                                — {msg.text} —
+        const handleSendMessage = async (text) => {
+            const messageText = text || inputValue;
+            if (!messageText.trim()) return;
+
+            const userMsg = { id: Date.now(), text: messageText, sender: "user" };
+            setMessages((prev) => [...prev, userMsg]);
+            setInputValue("");
+            setIsLoading(true);
+
+            try {
+                const { data } = await axios.post(`${BACKEND_URL}/api/chat`, {message: userMsg.text});
+                const botResponse = data.reply;
+
+                setMessages((prev) => [...prev,{ id: Date.now() + 1, text: botResponse, sender: "bot" }]);
+            } catch (error) {
+                console.error("Chat Error:", error);
+                const errorText =
+                    error.code === "ERR_NETWORK"
+                        ? "Connection Error: Backend unreachable (CORS / server offline)."
+                        : error.response?.data?.message || "Server error occurred.";
+
+                setMessages((prev) => [...prev, { id: Date.now() + 1, text: errorText, sender: "bot" }]);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        return (
+            <div className="fixed bottom-4 right-4 md:bottom-4 md:right-8 z-999 flex flex-col items-end font-sans">
+                <AnimatePresence mode="wait">
+                    {isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                            className="mb-4 flex flex-col overflow-hidden relative w-[calc(100vw-40px)] 
+                                h-[65vh] md:w-95 md:h-150 rounded-[10px] bg-[#050505] 
+                                shadow-[0_0_50px_-10px_rgba(0,0,0,0.8)] border border-white/10 ring-1 ring-green-500/20" >
+                            {/* Header */}
+                            <div className="relative z-10 p-0 overflow-hidden bg-black/50 backdrop-blur-xl border-b border-white/5 shrink-0">
+                                <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-size-[16px_16px]"></div>
+
+                                <div className="flex justify-between items-center px-5 py-4 relative z-20">
+                                    <div className="flex items-center gap-3">
+                                        <div className="relative w-10 h-10 rounded-xl bg-linear-to-br from-green-900/80 to-black border border-green-500/30 flex items-center justify-center shadow-[0_0_15px_-3px_rgba(34,197,94,0.3)]">
+                                            <Cpu size={20} className="text-green-400" />
+                                            <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                                             </span>
                                         </div>
-                                    ) : (
-                                        <div
-                                            className={`max-w-[85%] md:max-w-[80%] p-3 md:p-3.5 text-[14px] leading-6 shadow-md backdrop-blur-md ${msg.sender === "user"
-                                                    ? "bg-green-600 text-white rounded-2xl rounded-tr-sm shadow-green-900/20"
-                                                    : "bg-[#111] text-gray-300 border border-white/10 rounded-2xl rounded-tl-sm shadow-black/50"
-                                                }`}
-                                        >
-                                            {msg.sender === "bot" ? (
-                                                <ReactMarkdown
-                                                    components={{
-                                                        p: ({ node, ...props }) => (
-                                                            <p className="mb-2 leading-relaxed" {...props} />
-                                                        ),
-                                                        strong: ({ node, ...props }) => (
-                                                            <strong className="text-green-400 font-semibold" {...props} />
-                                                        ),
-                                                    }}
-                                                >
-                                                    {msg.text}
-                                                </ReactMarkdown>
-                                            ) : (
-                                                msg.text
-                                            )}
-                                        </div>
-                                    )}
-                                </motion.div>
-                            ))}
 
-                            {isLoading && (
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start ml-11">
-                                    <div className="bg-[#111] border border-white/10 px-4 py-3 rounded-2xl rounded-tl-none flex gap-1.5 items-center">
-                                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce"></div>
-                                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce delay-75"></div>
-                                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce delay-150"></div>
+                                        <div className="flex flex-col">
+                                            <h3 className="text-transparent bg-clip-text bg-linear-to-r from-white via-green-100 to-green-400 font-bold text-[16px] tracking-wide">
+                                                SAHIL.AI
+                                            </h3>
+                                            <div className="flex items-center gap-2">
+                                                <Wifi size={10} className="text-green-500" />
+                                                <span className="text-[10px] font-mono text-green-600 tracking-wider">SYSTEM ONLINE</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={() => setIsOpen(false)}
+                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition-all border border-transparent hover:border-red-500/30"
+                                    >
+                                        <X size={18} />
+                                    </button>
+                                </div>
+                                <div className="h-px w-full bg-linear-to-r from-transparent via-green-500/50 to-transparent opacity-50"></div>
+                            </div>
+
+                            {/* Chat Area - flex-1 ensures it takes remaining height */}
+                            <div className="flex-1 overflow-y-auto p-4 md:p-5 space-y-6 custom-scrollbar bg-black/20 relative">
+                                {messages.map((msg, idx) => (
+                                    <motion.div
+                                        key={msg.id}
+                                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        transition={{ duration: 0.3 }}
+                                        className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                                    >
+                                        {msg.sender === "bot" && (
+                                            <div className="w-8 h-8 rounded-full bg-black border border-green-500/30 flex items-center justify-center mr-3 mt-1 shadow-lg shrink-0">
+                                                <Terminal size={14} className="text-green-400" />
+                                            </div>
+                                        )}
+
+                                        {msg.sender === "system" ? (
+                                            <div className="w-full text-center">
+                                                <span className="text-[10px] text-green-500/30 font-mono tracking-[0.2em] uppercase">
+                                                    — {msg.text} —
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div
+                                                className={`max-w-[85%] md:max-w-[80%] p-3 md:p-3.5 text-[14px] leading-6 shadow-md backdrop-blur-md ${msg.sender === "user"
+                                                        ? "bg-green-600 text-white rounded-2xl rounded-tr-sm shadow-green-900/20"
+                                                        : "bg-[#111] text-gray-300 border border-white/10 rounded-2xl rounded-tl-sm shadow-black/50"
+                                                    }`}
+                                            >
+                                                {msg.sender === "bot" ? (
+                                                    <ReactMarkdown
+                                                        components={{
+                                                            p: ({ node, ...props }) => (
+                                                                <p className="mb-2 leading-relaxed" {...props} />
+                                                            ),
+                                                            strong: ({ node, ...props }) => (
+                                                                <strong className="text-green-400 font-semibold" {...props} />
+                                                            ),
+                                                        }}
+                                                    >
+                                                        {msg.text}
+                                                    </ReactMarkdown>
+                                                ) : (
+                                                    msg.text
+                                                )}
+                                            </div>
+                                        )}
+                                    </motion.div>
+                                ))}
+
+                                {isLoading && (
+                                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start ml-11 max-w-[250px]">
+                                        <div className="bg-[#111] border border-white/10 px-4 py-3 rounded-2xl rounded-tl-none flex flex-col gap-2.5 w-full">
+                                            
+                                            {/* Changing text & your original bouncing dots */}
+                                        <div className="flex justify-between items-center w-full">
+                                            <span className="text-gray-400 text-xs font-medium animate-pulse">
+                                                {loadingText}
+                                            </span>
+                                            <div className="flex gap-1.5 items-center">
+                                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce"></div>
+                                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce delay-75" style={{ animationDelay: '150ms' }}></div>
+                                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-bounce delay-150" style={{ animationDelay: '300ms' }}></div>
+                                            </div>
+                                        </div>
+
+                                        {/* Bottom row: Progress bar & percentage */}
+                                        <div className="flex items-center gap-2">
+                                            <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                                                <motion.div 
+                                                    className="h-full bg-green-500 rounded-full"
+                                                    initial={{ width: "0%" }}
+                                                    animate={{ width: `${loadingProgress}%` }}
+                                                    transition={{ ease: "easeOut", duration: 0.5 }}
+                                                />
+                                            </div>
+                                            <span className="text-green-500 text-[10px] font-mono font-bold w-6 text-right">
+                                                {Math.floor(loadingProgress)}%
+                                            </span>
+                                        </div>
+
                                     </div>
                                 </motion.div>
                             )}
