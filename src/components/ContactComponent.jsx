@@ -3,6 +3,7 @@ import {  motion,  useMotionTemplate,  useMotionValue,  AnimatePresence } from "
 import {  Send, Mail, MapPin, Phone,  Github, Linkedin,  ArrowRight, CheckCircle2, AlertCircle, Loader2, Sparkles, ExternalLink } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import axios from 'axios'
 
 function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -136,13 +137,23 @@ const HeaderSection = () => (
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-      if (!validate()) return; 
-  
-      setStatus("submitting");
-      await new Promise(resolve => setTimeout(resolve, 2000)); 
-      setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setStatus("idle"), 4000);
+      if (!validate()) return;
+
+      try {
+        setStatus("submitting");
+
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/contact`, formData);
+
+        if (res.data.success) {
+          setStatus("success");
+          setFormData({ name: "", email: "", subject: "", message: "" });
+        } else {
+          setStatus("idle");
+        }
+      } catch (err) {
+        console.error(err);
+        setStatus("idle");
+      }
     };
   
     const handleChange = (field, value) => {

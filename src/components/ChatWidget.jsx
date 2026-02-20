@@ -1,17 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-    MessageSquare,
-    X,
-    Terminal,
-    ChevronRight,
-    Cpu,
-    Wifi,
-    Zap
-} from "lucide-react";
+import { X, Terminal, ChevronRight, Cpu, Wifi, Zap } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import axios from "axios";
 
-// --- CONFIGURATION ---
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const SUGGESTIONS = ["Show Projects 🚀", "Contact Me 📞", "Skills ⚡", "Hire Me 💼"];
@@ -44,31 +36,19 @@ export default function ChatWidget() {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`${BACKEND_URL}/api/chat`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userMsg.text }),
-            });
-
-            if (!response.ok) {
-                throw new Error(`Server Error: ${response.status}`);
-            }
-
-            const data = await response.json();
+            const { data } = await axios.post(`${BACKEND_URL}/api/chat`, {message: userMsg.text});
             const botResponse = data.reply;
 
-            setMessages((prev) => [...prev, { id: Date.now() + 1, text: botResponse, sender: "bot" }]);
-
-            console.log(botResponse);
+            setMessages((prev) => [...prev,{ id: Date.now() + 1, text: botResponse, sender: "bot" }]);
         } catch (error) {
             console.error("Chat Error:", error);
-            const errorText = error.message.includes("Failed to fetch")
-                ? "Connection Error: Could not reach n8n (Check CORS or Port)."
-                : "System Error: " + error.message;
 
-            setTimeout(() => {
-                setMessages((prev) => [...prev, { id: Date.now() + 1, text: errorText, sender: "bot" }]);
-            }, 1000);
+            const errorText =
+                error.code === "ERR_NETWORK"
+                    ? "Connection Error: Backend unreachable (CORS / server offline)."
+                    : error.response?.data?.message || "Server error occurred.";
+
+            setMessages((prev) => [...prev, { id: Date.now() + 1, text: errorText, sender: "bot" }]);
         } finally {
             setIsLoading(false);
         }

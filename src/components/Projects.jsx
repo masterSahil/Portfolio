@@ -31,16 +31,6 @@ import img6 from '../assets/Image/Home/Projects/prj6.png'
 const PROJECTS = [
   {
     id: 1,
-    title: "AI Image Gen",
-    desc: "Text-to-image engine using Stable Diffusion.",
-    image: img1,
-    tech: ["React", "Vite", "HuggingFace"],
-    category: "AI",
-    repoUrl: "https://github.com/masterSahil/text-to-img-ai",
-    liveUrl: "https://text-to-img-ai-cyan.vercel.app/"
-  },
-  {
-    id: 2,
     title: "Secure Credentials Vault",
     desc: "A secure web-based vault for credentials storage.",
     image: img2,
@@ -48,6 +38,16 @@ const PROJECTS = [
     category: "Full Stack",
     repoUrl: "https://github.com/masterSahil/Credentials",
     liveUrl: "https://credentials-bay.vercel.app/"
+  },
+  {
+    id: 2,
+    title: "AI Image Gen",
+    desc: "Text-to-image engine using Stable Diffusion.",
+    image: img1,
+    tech: ["React", "Vite", "HuggingFace"],
+    category: "AI",
+    repoUrl: "https://github.com/masterSahil/text-to-img-ai",
+    liveUrl: "https://text-to-img-ai-cyan.vercel.app/"
   },
   {
     id: 3,

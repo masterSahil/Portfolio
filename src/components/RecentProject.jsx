@@ -28,16 +28,6 @@ import img6 from '../assets/Image/Home/Projects/prj6.png'
 const PROJECTS = [
   {
     id: 1,
-    title: "Secure Vault Mobile App",
-    desc: "A cross-platform mobile vault application to securely store any kind of credentials.",
-    image: img6,
-    tech: ["React Native", "MongoDB", "Supabase", "Expo"],
-    category: "Mobile App",
-    repoUrl: "https://github.com/masterSahil/Vault-App",
-    liveUrl: "https://github.com/masterSahil/Vault-App"
-  },
-  {
-    id: 2,
     title: "Secure Credentials Vault",
     desc: "A secure web-based vault for credentials storage integration.",
     image: img2,
@@ -45,6 +35,16 @@ const PROJECTS = [
     category: "Full Stack",
     repoUrl: "https://github.com/masterSahil/Credentials",
     liveUrl: "https://credentials-bay.vercel.app/"
+  },
+  {
+    id: 2,
+    title: "Secure Vault Mobile App",
+    desc: "A cross-platform mobile vault application to securely store any kind of credentials.",
+    image: img6,
+    tech: ["Native", "MongoDB", "Supabase", "Expo"],
+    category: "Mobile App",
+    repoUrl: "https://github.com/masterSahil/Vault-App",
+    liveUrl: "https://github.com/masterSahil/Vault-App"
   },
   {
     id: 3,
