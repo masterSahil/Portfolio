@@ -67,9 +67,10 @@ const SKILL_TREE = [
     line: "group-hover/branch:bg-teal-400",
     lineShadow: "group-hover/branch:shadow-[0_0_15px_#2dd4bf]",
     skills: [
-      { name: "React Native", level: 85 },
-      { name: "Expo", level: 75 },
-      { name: "APK Deployment", level: 82 }
+      { name: "Native / Expo", level: 85 },
+      { name: "API Integration", level: 92 },
+      { name: "APK / Production Build", level: 82 },
+      { name: "Offline Storage", level: 95 }
     ]
   },
   {
@@ -166,10 +167,10 @@ const SkillTree = () => {
           viewport={{ once: true }}
           className="relative z-20 mb-12 lg:mb-20"
         >
-          <div className="w-20 h-20 lg:w-28 lg:h-28 rounded-full bg-[#0a0d0b] border-2 border-green-500 shadow-[0_0_40px_rgba(34,197,94,0.3)] flex items-center justify-center relative z-20 hover:scale-110 transition-transform duration-300">
+          <div className="w-20 h-20 lg:w-28 lg:h-28 rounded-full bg-[#0a0d0b] border-2 border-green-500 shadow-[0_0_40px_rgba(34,197,94,0.3)] flex items-center justify-center relative z-20 hover:scale-102 transition-transform duration-300">
             <Code2 className="w-8 h-8 lg:w-12 lg:h-12 text-white" />
           </div>
-          <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 text-center w-max">
+          <div className="absolute top-full z-10 left-1/2 -translate-x-1/2 mt-4 text-center w-max">
             <span className="text-green-400 font-bold tracking-widest text-[10px] lg:text-xs uppercase bg-[#020602]/90 px-3 py-1 rounded border border-green-500/30 backdrop-blur-md">
               Full Stack Arch
             </span>
@@ -183,7 +184,7 @@ const SkillTree = () => {
         <div className="relative w-full flex flex-col lg:flex-row justify-center items-center lg:items-start gap-12 lg:gap-6 xl:gap-10">
           
           {/* PC Connector: Horizontal Bus Bar */}
-          <div className="hidden lg:block absolute -top-0 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-green-500/40 to-transparent" />
+          <div className="hidden lg:block absolute top-10 left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-transparent via-green-500/70 to-transparent" />
 
           {/* Mobile Connector: Vertical Spine Background */}
           <div className="lg:hidden absolute top-[-30px] bottom-20 left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-b from-green-500/40 via-green-500/10 to-transparent pointer-events-none" />

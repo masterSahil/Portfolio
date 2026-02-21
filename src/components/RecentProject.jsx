@@ -58,7 +58,7 @@ const PROJECTS = [
   },
   {
   id: 4,
-    title: "E-SHOP – Full Stack E-Commerce",
+    title: "Full Stack E-Commerce",
     desc: "A complete MERN-based e-commerce platform with inventory management.",
     image: img4,
     tech: ["React", "MongoDB", "Multer"],
@@ -196,29 +196,21 @@ const PowerCard = ({ project, index }) => {
         )} />
       </div>
 
-      {/* 3. THE CONNECTION POINT / DOT & LINK */}
+      {/* 3. CYBERNETIC ORBITAL DATA CORE & READOUT */}
       <div 
         className={cn(
-          "absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 transition-all duration-300",
-          isHovered ? "opacity-100 delay-100" : "opacity-0"
+          "absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 transition-all duration-500",
+          isHovered ? "opacity-100 delay-100 scale-100" : "opacity-0 scale-50"
         )}
       >
         <div className="relative flex items-center justify-center">
-            {/* The Dot */}
-            <div className="w-3 h-3 rounded-full bg-emerald-500 border border-emerald-400 shadow-[0_0_15px_#34d399]" />
+            {/* Orbital Spinning Rings */}
+            <div className="absolute w-16 h-16 rounded-full border-t-2 border-r-2 border-emerald-500/30 animate-[spin_3s_linear_infinite]" />
+            <div className="absolute w-12 h-12 rounded-full border-b-2 border-l-2 border-emerald-400/50 animate-[spin_2s_linear_infinite_reverse]" />
+            <div className="absolute w-10 h-10 rounded-full border border-dashed border-emerald-200/40 animate-[spin_4s_linear_infinite]" />
             
-            {/* The Clickable URL Badge */}
-            <a 
-              href={project.repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/80 border border-emerald-500/30 text-[10px] text-emerald-400 font-mono whitespace-nowrap transition-all duration-300 hover:bg-emerald-500/20 hover:border-emerald-500 cursor-pointer pointer-events-auto",
-                isHovered ? "mt-6 opacity-100" : "mt-4 opacity-0"
-              )}
-            >
-               {project.repoUrl.replace('https://', '')}
-            </a>
+            {/* The Core Diamond */}
+            <div className="relative z-10 w-2.5 h-2.5 rotate-45 bg-emerald-300 shadow-[0_0_20px_#34d399,0_0_8px_#fff]" />
         </div>
       </div>
 
