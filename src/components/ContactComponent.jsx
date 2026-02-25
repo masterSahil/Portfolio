@@ -3,7 +3,7 @@ import {  motion,  useMotionTemplate,  useMotionValue,  AnimatePresence } from "
 import {  Send, Mail, MapPin, Phone,  Github, Linkedin,  ArrowRight, CheckCircle2, AlertCircle, Loader2, Sparkles, ExternalLink } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import axios from 'axios'
+import axios from 'axios';
 
 function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -35,19 +35,10 @@ const ContactComponent = () => {
       onMouseMove={handleMouseMove}
       className="relative min-h-screen w-full bg-[#020602] overflow-hidden selection:bg-emerald-500/30 selection:text-emerald-200 font-sans text-slate-200 group"
     >
-      
-      {/* --- BACKGROUND MATRIX & TORCH EFFECT --- */}
       <div className="absolute inset-0 pointer-events-none">
-        
-        {/* Top Fade Gradient */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-green-900/20 via-transparent to-transparent opacity-50" />
-        
-        {/* Matrix Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
         
-        {/* 1. DESKTOP TORCH (Hidden on Mobile) 
-            Follows the mouse cursor.
-        */}
         <motion.div
           className="block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
@@ -62,9 +53,6 @@ const ContactComponent = () => {
           }}
         />
 
-        {/* 2. MOBILE TORCH (Hidden on Desktop)
-            Automatically floats around like a searchlight.
-        */}
         <motion.div
             className="md:hidden absolute inset-0 opacity-100"
             animate={{
@@ -84,7 +72,6 @@ const ContactComponent = () => {
         />
       </div>
 
-      {/* --- CONTENT --- */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col gap-12 py-20 md:py-24">
         <HeaderSection />
         <ContactFormSection />
@@ -118,7 +105,7 @@ const HeaderSection = () => (
     </motion.div>
   );
   
-  const ContactFormSection = () => {
+const ContactFormSection = () => {
     const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState("idle");
@@ -142,11 +129,17 @@ const HeaderSection = () => (
       try {
         setStatus("submitting");
 
+        // React POSTs to your Express Backend, hitting the proxy route
         const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/contact`, formData);
 
         if (res.data.success) {
           setStatus("success");
           setFormData({ name: "", email: "", subject: "", message: "" });
+          
+          // Reset button back to idle after showing success
+          setTimeout(() => {
+            setStatus("idle");
+          }, 3000);
         } else {
           setStatus("idle");
         }
@@ -165,8 +158,6 @@ const HeaderSection = () => (
   
     return (
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-        
-        {/* Contact Info (Left) */}
         <motion.div 
           className="lg:col-span-4 space-y-6 order-2 lg:order-1"
           initial={{ x: -20, opacity: 0 }}
@@ -175,7 +166,6 @@ const HeaderSection = () => (
           transition={{ duration: 0.5 }}
         >
           <div className="relative p-6 rounded-xl bg-[#0a0f0b] border border-white/10 flex flex-col gap-6 h-full overflow-hidden group/card">
-              {/* Hover Glow for Card */}
               <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none" />
               
               <h3 className="text-lg font-bold text-white flex items-center gap-2 relative z-10">
@@ -183,48 +173,21 @@ const HeaderSection = () => (
                   Contact Info
               </h3>
               
-              {/* Contact Items - All Clickable */}
               <div className="space-y-3 relative z-10">
-                  <ContactItem 
-                    icon={Mail} 
-                    label="Email" 
-                    value={CONTACT_DETAILS.email} 
-                    href={`mailto:${CONTACT_DETAILS.email}`} 
-                  />
-                  <ContactItem 
-                    icon={Phone} 
-                    label="Phone" 
-                    value={CONTACT_DETAILS.phone} 
-                    href={`tel:${CONTACT_DETAILS.phone}`} 
-                  />
-                  <ContactItem 
-                    icon={MapPin} 
-                    label="Location" 
-                    value={CONTACT_DETAILS.address} 
-                    href={CONTACT_DETAILS.googleMapsUrl}
-                    isExternal 
-                  />
+                  <ContactItem icon={Mail} label="Email" value={CONTACT_DETAILS.email} href={`mailto:${CONTACT_DETAILS.email}`} />
+                  <ContactItem icon={Phone} label="Phone" value={CONTACT_DETAILS.phone} href={`tel:${CONTACT_DETAILS.phone}`} />
+                  <ContactItem icon={MapPin} label="Location" value={CONTACT_DETAILS.address} href={CONTACT_DETAILS.googleMapsUrl} isExternal />
               </div>
               
               <div className="w-full h-px bg-white/5 my-2 relative z-10" />
   
-              {/* Social Buttons */}
               <div className="grid grid-cols-1 gap-3 mt-auto relative z-10">
-                    <SocialButton 
-                      icon={Github} 
-                      label="GitHub" 
-                      href={CONTACT_DETAILS.github} 
-                    />
-                    <SocialButton 
-                      icon={Linkedin} 
-                      label="LinkedIn" 
-                      href={CONTACT_DETAILS.linkedin} 
-                    />
+                    <SocialButton icon={Github} label="GitHub" href={CONTACT_DETAILS.github} />
+                    <SocialButton icon={Linkedin} label="LinkedIn" href={CONTACT_DETAILS.linkedin} />
               </div>
           </div>
         </motion.div>
   
-        {/* Main Form (Right) */}
         <motion.div 
           className="lg:col-span-8 order-1 lg:order-2"
           initial={{ x: 20, opacity: 0 }}
@@ -237,46 +200,19 @@ const HeaderSection = () => (
                   onSubmit={handleSubmit}
                   className="relative bg-[#0a0f0b] rounded-xl p-6 md:p-8 border border-white/10 h-full flex flex-col group/form overflow-hidden"
               >
-                  {/* Subtle Scanline on Form Hover */}
                   <div className="absolute top-0 left-0 w-full h-px bg-emerald-500/30 -translate-x-full group-hover/form:animate-[scan_3s_linear_infinite] opacity-0 group-hover/form:opacity-100 pointer-events-none" />
   
                   <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
-                      <GreenInput 
-                          label="Name" 
-                          value={formData.name} 
-                          error={errors.name}
-                          onChange={(e) => handleChange('name', e.target.value)}
-                          placeholder="John Doe"
-                      />
-                      <GreenInput 
-                          label="Email" 
-                          type="email"
-                          value={formData.email} 
-                          error={errors.email}
-                          onChange={(e) => handleChange('email', e.target.value)}
-                          placeholder="john@example.com"
-                      />
+                      <GreenInput label="Name" value={formData.name} error={errors.name} onChange={(e) => handleChange('name', e.target.value)} placeholder="John Doe" />
+                      <GreenInput label="Email" type="email" value={formData.email} error={errors.email} onChange={(e) => handleChange('email', e.target.value)} placeholder="john@example.com" />
                   </div>
   
                   <div className="mb-6 relative z-10">
-                      <GreenInput 
-                          label="Subject" 
-                          value={formData.subject} 
-                          error={errors.subject}
-                          onChange={(e) => handleChange('subject', e.target.value)}
-                          placeholder="Project Inquiry"
-                      />
+                      <GreenInput label="Subject" value={formData.subject} error={errors.subject} onChange={(e) => handleChange('subject', e.target.value)} placeholder="Project Inquiry" />
                   </div>
   
                   <div className="mb-8 grow relative z-10">
-                      <GreenInput 
-                          label="Message" 
-                          textarea 
-                          value={formData.message} 
-                          error={errors.message}
-                          onChange={(e) => handleChange('message', e.target.value)}
-                          placeholder="Tell me about your idea..."
-                      />
+                      <GreenInput label="Message" textarea value={formData.message} error={errors.message} onChange={(e) => handleChange('message', e.target.value)} placeholder="Tell me about your idea..." />
                   </div>
   
                   <SubmitButton status={status} />
@@ -285,15 +221,10 @@ const HeaderSection = () => (
         </motion.div>
       </div>
     );
-  };
+};
   
-  const SocialButton = ({ icon: Icon, label, href }) => (
-      <a 
-        href={href} 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="group relative flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all duration-200"
-      >
+const SocialButton = ({ icon: Icon, label, href }) => (
+      <a href={href} target="_blank" rel="noopener noreferrer" className="group relative flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all duration-200">
           <div className="flex items-center gap-3">
               <div className="p-1.5 bg-black/40 rounded text-emerald-400 group-hover:text-emerald-300 transition-colors">
                   <Icon className="w-4 h-4" />
@@ -302,15 +233,10 @@ const HeaderSection = () => (
           </div>
           <ExternalLink className="w-3.5 h-3.5 text-slate-600 group-hover:text-emerald-400 transition-colors" />
       </a>
-  );
+);
   
-  const ContactItem = ({ icon: Icon, label, value, href, isExternal }) => (
-      <a 
-        href={href}
-        target={isExternal ? "_blank" : undefined}
-        rel={isExternal ? "noopener noreferrer" : undefined}
-        className="flex items-center gap-4 group p-3 -mx-2 rounded-lg hover:bg-white/5 transition-colors"
-      >
+const ContactItem = ({ icon: Icon, label, value, href, isExternal }) => (
+      <a href={href} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noopener noreferrer" : undefined} className="flex items-center gap-4 group p-3 -mx-2 rounded-lg hover:bg-white/5 transition-colors">
           <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500/20 transition-all duration-300">
               <Icon className="w-4 h-4" />
           </div>
@@ -322,9 +248,9 @@ const HeaderSection = () => (
           </div>
           <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-emerald-400" />
       </a>
-  );
+);
   
-  const GreenInput = ({ label, value, onChange, error, placeholder, type = "text", textarea = false }) => {
+const GreenInput = ({ label, value, onChange, error, placeholder, type = "text", textarea = false }) => {
     const [isFocused, setIsFocused] = useState(false);
     const Component = textarea ? "textarea" : "input";
   
@@ -334,75 +260,30 @@ const HeaderSection = () => (
     };
   
     return (
-      <motion.div 
-          className="flex flex-col gap-1.5 w-full"
-          animate={error ? "shake" : "idle"}
-          variants={shakeVariants}
-      >
+      <motion.div className="flex flex-col gap-1.5 w-full" animate={error ? "shake" : "idle"} variants={shakeVariants}>
         <div className="flex justify-between items-end">
-          <label className={cn(
-              "text-[10px] font-bold uppercase tracking-widest transition-colors duration-200",
-              error ? "text-red-400" : isFocused ? "text-emerald-400" : "text-slate-500"
-          )}>
+          <label className={cn("text-[10px] font-bold uppercase tracking-widest transition-colors duration-200", error ? "text-red-400" : isFocused ? "text-emerald-400" : "text-slate-500")}>
               {label} {error && "*"}
           </label>
-          
           <AnimatePresence>
               {error && (
-                  <motion.span 
-                      initial={{ opacity: 0, x: -5 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -5 }}
-                      className="text-[10px] text-red-400 font-medium flex items-center gap-1"
-                  >
+                  <motion.span initial={{ opacity: 0, x: -5 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -5 }} className="text-[10px] text-red-400 font-medium flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" /> {error}
                   </motion.span>
               )}
           </AnimatePresence>
         </div>
-  
         <div className="relative group">
-          <Component
-            value={value}
-            onChange={onChange}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            placeholder={placeholder}
-            rows={textarea ? 4 : undefined}
-            type={type}
-            className={cn(
-              "w-full bg-[#111] text-slate-200 border outline-none py-3 px-3 transition-all duration-200 placeholder:text-slate-700 font-mono text-sm",
-              "rounded-lg",
-              error 
-                  ? "border-red-500/50 bg-red-500/5 focus:border-red-500" 
-                  : isFocused 
-                      ? "border-emerald-500/50 bg-[#131614] shadow-[0_0_15px_rgba(16,185,129,0.1)]" 
-                      : "border-white/10 hover:border-white/20 hover:bg-[#141414]"
-            )}
-          />
+          <Component value={value} onChange={onChange} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} placeholder={placeholder} rows={textarea ? 4 : undefined} type={type} className={cn("w-full bg-[#111] text-slate-200 border outline-none py-3 px-3 transition-all duration-200 placeholder:text-slate-700 font-mono text-sm", "rounded-lg", error ? "border-red-500/50 bg-red-500/5 focus:border-red-500" : isFocused ? "border-emerald-500/50 bg-[#131614] shadow-[0_0_15px_rgba(16,185,129,0.1)]" : "border-white/10 hover:border-white/20 hover:bg-[#141414]")} />
         </div>
       </motion.div>
     );
-  };
+};
   
-  const SubmitButton = ({ status }) => (
-      <button
-          disabled={status === "submitting"}
-          className={cn(
-              "w-full relative overflow-hidden rounded-lg group transition-all duration-200",
-              status === "submitting" ? "opacity-80" : "hover:brightness-110 active:scale-[0.99]"
-          )}
-      >
-          <div className={cn(
-              "absolute inset-0 bg-gradient-to-r from-emerald-600 to-green-600 transition-all duration-300",
-              status === "success" ? "opacity-0" : "opacity-100"
-          )} />
-  
-          <div className={cn(
-              "absolute inset-0 bg-emerald-500 transition-all duration-300",
-              status === "success" ? "opacity-100" : "opacity-0"
-          )} />
-          
+const SubmitButton = ({ status }) => (
+      <button disabled={status === "submitting"} className={cn("w-full relative overflow-hidden rounded-lg group transition-all duration-200", status === "submitting" ? "opacity-80" : "hover:brightness-110 active:scale-[0.99]")}>
+          <div className={cn("absolute inset-0 bg-gradient-to-r from-emerald-600 to-green-600 transition-all duration-300", status === "success" ? "opacity-0" : "opacity-100")} />
+          <div className={cn("absolute inset-0 bg-emerald-500 transition-all duration-300", status === "success" ? "opacity-100" : "opacity-0")} />
           <div className="relative flex items-center justify-center gap-2 text-white font-bold py-3.5 rounded-lg text-sm tracking-wide">
               {status === "submitting" ? (
                   <>
@@ -422,6 +303,6 @@ const HeaderSection = () => (
               )}
           </div>
       </button>
-  );
+);
   
-  export default ContactComponent;
+export default ContactComponent;
