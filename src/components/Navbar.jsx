@@ -73,7 +73,7 @@ const Navbar = () => {
 
           {/* Download Resume Button */}
           <div className="pr-2">
-            <a href="/resume.pdf" download="Sahil_Master_Resume.pdf"
+            <a href="/Master_Sahil_Resume.pdf" download="Sahil_Master_Resume.pdf"
               className="flex items-center gap-2 px-5 py-2 rounded-full bg-white text-black text-sm font-bold hover:bg-green-400 transition-colors duration-300 group" >
               <span>Resume</span>
               <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
@@ -134,7 +134,7 @@ const Navbar = () => {
             </div>
 
             {/* Resume Button (Mobile - Compact) */}
-            <a href="/resume.pdf"
+            <a href="/Master_Sahil_Resume.pdf"
               download="Sahil_Master_Resume.pdf"
               className="p-2 rounded-full bg-white/10 text-white hover:bg-green-500 hover:text-black transition-all duration-300 border border-white/10"
               aria-label="Download Resume" >
