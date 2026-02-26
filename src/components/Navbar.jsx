@@ -3,8 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import {  Home,  Briefcase,  Mail,  Terminal,  Download } from "lucide-react";
 
-import resume from '../assets/resume/resume.pdf'; 
-
 const navItems = [
   { name: "Home", icon: Home, href: "/" },
   { name: "Projects", icon: Briefcase, href: "/projects" },
@@ -75,7 +73,7 @@ const Navbar = () => {
 
           {/* Download Resume Button */}
           <div className="pr-2">
-            <a href={resume} download="Sahil_Master_Resume.pdf"
+            <a href="/resume.pdf" download="Sahil_Master_Resume.pdf"
               className="flex items-center gap-2 px-5 py-2 rounded-full bg-white text-black text-sm font-bold hover:bg-green-400 transition-colors duration-300 group" >
               <span>Resume</span>
               <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
@@ -136,7 +134,7 @@ const Navbar = () => {
             </div>
 
             {/* Resume Button (Mobile - Compact) */}
-            <a  href={resume}
+            <a href="/resume.pdf"
               download="Sahil_Master_Resume.pdf"
               className="p-2 rounded-full bg-white/10 text-white hover:bg-green-500 hover:text-black transition-all duration-300 border border-white/10"
               aria-label="Download Resume" >

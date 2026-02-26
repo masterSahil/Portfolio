@@ -7,8 +7,6 @@ import {
   useMotionTemplate 
 } from "framer-motion";
 import { Mail, Download } from "lucide-react";
-import resume from "../assets/resume/resume.pdf";
-
 
 const ContactCTA = () => {
   const containerRef = useRef(null);
@@ -121,7 +119,7 @@ const ContactCTA = () => {
 
             {/* Secondary Button: Download Resume */}
             <a 
-              href={resume} 
+              href="/resume.pdf" 
               download="Sahil_Master_Resume.pdf"
               className="group/btn flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 font-semibold text-slate-300 transition-all hover:bg-white/10 hover:text-white active:scale-95"
             >
