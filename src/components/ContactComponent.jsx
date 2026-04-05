@@ -36,8 +36,8 @@ const ContactComponent = () => {
       className="relative min-h-screen w-full bg-[#020602] overflow-hidden selection:bg-emerald-500/30 selection:text-emerald-200 font-sans text-slate-200 group"
     >
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-green-900/20 via-transparent to-transparent opacity-50" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-125 bg-linear-to-b from-green-900/20 via-transparent to-transparent opacity-50" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
         
         <motion.div
           className="block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -96,7 +96,7 @@ const HeaderSection = () => (
       </div>
   
       <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white">
-        Let's <span className="text-transparent bg-clip-text bg-gradient-to-br from-emerald-400 to-green-600">Connect</span>
+        Let's <span className="text-transparent bg-clip-text bg-linear-to-br from-emerald-400 to-green-600">Connect</span>
       </h1>
       <p className="max-w-xl text-slate-400 text-base md:text-lg leading-relaxed">
         Have a project in mind? I'm available for freelance work. 
@@ -282,7 +282,7 @@ const GreenInput = ({ label, value, onChange, error, placeholder, type = "text",
   
 const SubmitButton = ({ status }) => (
       <button disabled={status === "submitting"} className={cn("w-full relative overflow-hidden rounded-lg group transition-all duration-200", status === "submitting" ? "opacity-80" : "hover:brightness-110 active:scale-[0.99]")}>
-          <div className={cn("absolute inset-0 bg-gradient-to-r from-emerald-600 to-green-600 transition-all duration-300", status === "success" ? "opacity-0" : "opacity-100")} />
+          <div className={cn("absolute inset-0 bg-linear-to-r from-emerald-600 to-green-600 transition-all duration-300", status === "success" ? "opacity-0" : "opacity-100")} />
           <div className={cn("absolute inset-0 bg-emerald-500 transition-all duration-300", status === "success" ? "opacity-100" : "opacity-0")} />
           <div className="relative flex items-center justify-center gap-2 text-white font-bold py-3.5 rounded-lg text-sm tracking-wide">
               {status === "submitting" ? (
