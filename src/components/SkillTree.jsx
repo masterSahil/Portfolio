@@ -124,8 +124,8 @@ const SkillTree = () => {
     >
       {/* --- Dynamic Background --- */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-green-900/10 via-transparent to-transparent opacity-50" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-125 bg-linear-to-b from-green-900/10 via-transparent to-transparent opacity-50" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
         
         {/* Flashlight Cursor */}
         <motion.div
@@ -150,7 +150,7 @@ const SkillTree = () => {
           Technical Proficiency
         </div>
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
-          Interactive <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-600">Skill Matrix</span>
+          Interactive <span className="text-transparent bg-clip-text bg-linear-to-r from-green-300 to-emerald-600">Skill Matrix</span>
         </h2>
         <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
           Hover over the nodes to see the energy flow.
@@ -158,7 +158,7 @@ const SkillTree = () => {
       </div>
 
       {/* --- TREE STRUCTURE --- */}
-      <div className="relative z-10 w-full max-w-[1400px] px-4 flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-350 px-4 flex flex-col items-center">
         
         {/* 1. ROOT NODE */}
         <motion.div 
@@ -177,17 +177,17 @@ const SkillTree = () => {
           </div>
           
           {/* Main Vertical Spine (Root) */}
-          <div className="absolute top-20 lg:top-28 left-1/2 -translate-x-1/2 h-16 lg:h-24 w-[2px] bg-gradient-to-b from-green-500 to-green-500/40 shadow-[0_0_15px_#22c55e]"></div>
+          <div className="absolute top-20 lg:top-28 left-1/2 -translate-x-1/2 h-16 lg:h-24 w-0.5 bg-linear-to-b from-green-500 to-green-500/40 shadow-[0_0_15px_#22c55e]"></div>
         </motion.div>
 
         {/* 2. BRANCH CONTAINER */}
         <div className="relative w-full flex flex-col lg:flex-row justify-center items-center lg:items-start gap-12 lg:gap-6 xl:gap-10">
           
           {/* PC Connector: Horizontal Bus Bar */}
-          <div className="hidden lg:block absolute top-10 left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-transparent via-green-500/70 to-transparent" />
+          <div className="hidden lg:block absolute top-10 left-[5%] right-[5%] h-0.5 bg-linear-to-r from-transparent via-green-500/70 to-transparent" />
 
           {/* Mobile Connector: Vertical Spine Background */}
-          <div className="lg:hidden absolute top-[-30px] bottom-20 left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-b from-green-500/40 via-green-500/10 to-transparent pointer-events-none" />
+          <div className="lg:hidden absolute -top-7.5 bottom-20 left-1/2 -translate-x-1/2 w-0.5 bg-linear-to-b from-green-500/40 via-green-500/10 to-transparent pointer-events-none" />
 
           {SKILL_TREE.map((branch, index) => (
             <SkillBranch key={branch.category} branch={branch} index={index} bar={branch.bar} />
@@ -236,7 +236,7 @@ const SkillBranch = ({ branch, index }) => {
       */}
       <div className={cn(
           "hidden lg:block absolute -top-12 lg:-top-24 left-1/2 -translate-x-1/2 h-12 lg:h-24 w-0.5 transition-all duration-300",
-          "bg-gradient-to-b from-white/10 to-transparent", // Inactive State
+          "bg-linear-to-b from-white/10 to-transparent", // Inactive State
           branch.line,       // Active Color (e.g. bg-emerald-400)
           branch.lineShadow  // Active Glow (e.g. shadow-green)
       )}></div>
@@ -272,7 +272,7 @@ const SkillBranch = ({ branch, index }) => {
           
           {/* Inner Glow */}
           <div className={cn(
-            "absolute inset-0 rounded-2xl bg-gradient-to-br transition-opacity duration-300", 
+            "absolute inset-0 rounded-2xl bg-linear-to-br transition-opacity duration-300", 
             `from-white/10 to-transparent`,
             (isTapped ? "opacity-20" : "opacity-0 group-hover/branch:opacity-20")
           )} />

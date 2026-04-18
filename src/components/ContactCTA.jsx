@@ -39,12 +39,12 @@ const ContactCTA = () => {
       <div className="absolute inset-0 pointer-events-none">
         
         {/* 1. The "Pulse" Glow Center */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-green-500/10 blur-[120px] rounded-full opacity-60 animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-100 bg-green-500/10 blur-[120px] rounded-full opacity-60 animate-pulse" />
         
         {/* 2. Grid Pattern (Moving) */}
         <motion.div 
           style={{ y }}
-          className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50" 
+          className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50" 
         />
 
         {/* 3. THE CURSOR FLASHLIGHT EFFECT */}
@@ -81,7 +81,7 @@ const ContactCTA = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
           >
-            Have a project in <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">mind?</span>
+            Have a project in <span className="text-transparent bg-clip-text bg-linear-to-r from-green-400 to-emerald-600">mind?</span>
           </motion.h2>
 
           {/* Subtext */}
@@ -114,7 +114,7 @@ const ContactCTA = () => {
                 Contact Me
               </span>
               {/* Shine Effect */}
-              <div className="absolute inset-0 -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0" />
+              <div className="absolute inset-0 -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] bg-linear-to-r from-transparent via-white/20 to-transparent z-0" />
             </a>
 
             {/* Secondary Button: Download Resume */}

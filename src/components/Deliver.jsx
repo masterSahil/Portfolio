@@ -1,21 +1,6 @@
 import React from "react";
-import { 
-  motion, 
-  useMotionTemplate, 
-  useMotionValue 
-} from "framer-motion";
-import { 
-  Monitor, 
-  Smartphone, 
-  BrainCircuit, 
-  ArrowUpRight, 
-  Code2, 
-  Cpu, 
-  Globe,
-  Database,
-  Layers,
-  Zap
-} from "lucide-react";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { Monitor, Smartphone, BrainCircuit, ArrowUpRight, Code2, Cpu, Globe, Database, Layers, Zap } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -92,9 +77,9 @@ const Deliver = () => {
     >
       {/* --- Dynamic Green Grid Background --- */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-green-900/20 rounded-full blur-[80px] md:blur-[128px]" />
+        <div className="absolute bottom-0 right-0 w-75 md:w-125 h-75 md:h-125 bg-green-900/20 rounded-full blur-[80px] md:blur-[128px]" />
         
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem] md:bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[2rem_2rem] md:bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
 
         <motion.div
           className="absolute inset-0 opacity-0 group-hover/section:opacity-100 transition-opacity duration-500"
@@ -123,12 +108,12 @@ const Deliver = () => {
             className="max-w-2xl"
           >
             <div className="inline-flex items-center gap-2 mb-4">
-               <span className="w-8 h-[2px] bg-green-500"></span>
+               <span className="w-8 h-0.5 bg-green-500"></span>
                <span className="text-green-400 font-bold tracking-widest text-sm uppercase">What I Deliver</span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               High-Impact Services <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-600">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-green-300 to-emerald-600">
                 For Modern Brands.
               </span>
             </h2>
@@ -155,7 +140,7 @@ const ServiceCard = ({ service, index }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       // FIX: Changed h-[420px] to min-h-[400px] h-auto to prevent overflow on mobile
-      className="group relative w-full h-auto min-h-[380px] md:h-[420px]"
+      className="group relative w-full h-auto min-h-95 md:h-105"
     >
       <div className={cn(
         "relative h-full w-full rounded-2xl bg-[#0f1210] border px-6 py-8 md:p-8 flex flex-col justify-between transition-all duration-300 overflow-hidden",
@@ -164,7 +149,7 @@ const ServiceCard = ({ service, index }) => {
         service.themeShadow
       )}>
         {/* --- Background Elements --- */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/80 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-br from-transparent to-black/80 pointer-events-none" />
         
         {/* Giant Abstract Icon Background */}
         <div className="absolute -right-12 -top-12 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
@@ -213,7 +198,7 @@ const ServiceCard = ({ service, index }) => {
         </div>
 
         {/* --- Interactive Gradient Overlay --- */}
-        <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-br from-green-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
       </div>
     </motion.div>

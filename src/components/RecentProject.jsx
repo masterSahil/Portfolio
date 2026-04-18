@@ -28,6 +28,16 @@ import img6 from '../assets/Image/Home/Projects/prj6.png'
 const PROJECTS = [
   {
     id: 1,
+    title: "Corporate Software System",
+    desc: "A powerful internal system to manage employees, rewards, and company operations in one place.",
+    image: img1, 
+    tech: ["React", "Node", "Razorpay", "MongoDB"],
+    category: "Full Stack",
+    repoUrl: "https://github.com/masterSahil/Corporate-Landing-page",
+    liveUrl: "https://corporate-master.vercel.app/"
+  },
+  {
+    id: 2,
     title: "Secure Credentials Vault",
     desc: "A secure web-based vault for credentials storage integration.",
     image: img2,
@@ -37,7 +47,7 @@ const PROJECTS = [
     liveUrl: "https://credentials-bay.vercel.app/"
   },
   {
-    id: 2,
+    id: 3,
     title: "Secure Vault Mobile App",
     desc: "A cross-platform mobile vault application to securely store any kind of credentials.",
     image: img6,
@@ -45,16 +55,6 @@ const PROJECTS = [
     category: "Mobile App",
     repoUrl: "https://github.com/masterSahil/Vault-App",
     liveUrl: "https://github.com/masterSahil/Vault-App"
-  },
-  {
-    id: 3,
-    title: "Chatbot Core",
-    desc: "Real-time conversational agent with memory.",
-    image: img3,
-    tech: ["React JS", "Multi Theme", "Gemini API"],
-    category: "AI",
-    repoUrl: "https://github.com/masterSahil/Chatbot-main",
-    liveUrl: "https://chatbot-main-nine.vercel.app/"
   },
   {
   id: 4,
@@ -78,13 +78,13 @@ const PROJECTS = [
   },
   {
     id: 6,
-    title: "AI Image Gen",
-    desc: "Text-to-image engine using Stable Diffusion.",
-    image: img1,
-    tech: ["HuggingFace", "React", "Vite"],
+    title: "Chatbot Core",
+    desc: "Real-time conversational agent with memory.",
+    image: img3,
+    tech: ["React JS", "Multi Theme", "Gemini API"],
     category: "AI",
-    repoUrl: "https://github.com/masterSahil/text-to-img-ai",
-    liveUrl: "https://text-to-img-ai-cyan.vercel.app/"
+    repoUrl: "https://github.com/masterSahil/Chatbot-main",
+    liveUrl: "https://chatbot-main-nine.vercel.app/"
   }
 ];
 
@@ -107,7 +107,7 @@ const RecentProjects = () => {
       
       {/* --- Dynamic Background Flashlight --- */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
@@ -132,7 +132,7 @@ const RecentProjects = () => {
               <span>System Output</span>
             </div>
             <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
-              Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">Deployments</span>
+              Selected <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-cyan-500">Deployments</span>
             </h2>
           </div>
           <Link to="/projects" 
@@ -166,7 +166,7 @@ const PowerCard = ({ project, index }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "relative h-[400px] rounded-2xl bg-[#0a0d0b] overflow-hidden transition-all duration-500",
+        "relative h-100 rounded-2xl bg-[#0a0d0b] overflow-hidden transition-all duration-500",
         isHovered ? "border border-emerald-500/50" : "border border-white/10"
       )}
     >
@@ -180,13 +180,11 @@ const PowerCard = ({ project, index }) => {
             isHovered ? "opacity-40 scale-105 blur-[2px]" : "opacity-60 scale-100"
           )}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020602] via-[#020602]/80 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#020602] via-[#020602]/80 to-transparent" />
       </div>
 
       {/* 2. THE VERTICAL CORD */}
-      <div 
-        className={cn(
-          "absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[35%] bg-white/10 overflow-hidden z-20 transition-opacity duration-300",
+      <div className={cn("absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-[35%] bg-white/10 overflow-hidden z-20 transition-opacity duration-300",
           isHovered ? "opacity-100" : "opacity-0"
         )}
       >

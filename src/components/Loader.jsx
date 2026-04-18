@@ -52,7 +52,7 @@ const NexusLoader = ({ isLoading }) => {
   return (
     <AnimatePresence>
       {show && (
-        <div className="fixed inset-0 z-[9999] flex flex-col pointer-events-none">
+        <div className="fixed inset-0 z-9999 flex flex-col pointer-events-none">
           
           {/* --- TOP SHUTTER --- */}
           <motion.div
@@ -62,7 +62,7 @@ const NexusLoader = ({ isLoading }) => {
             className="relative flex-1 bg-[#020602] w-full flex items-end justify-center border-b border-green-500/20"
           >
              {/* Background Grid */}
-             <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+             <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-bg-size-[4rem_4rem]" />
           </motion.div>
 
           {/* --- BOTTOM SHUTTER --- */}
@@ -73,7 +73,7 @@ const NexusLoader = ({ isLoading }) => {
             className="relative flex-1 bg-[#020602] w-full flex items-start justify-center border-t border-green-500/20"
           >
              {/* Background Grid */}
-             <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+             <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-size-[4rem_4rem]" />
           </motion.div>
 
           {/* --- CENTER CONTENT (Absolute) --- */}
@@ -133,7 +133,7 @@ const NexusLoader = ({ isLoading }) => {
                    </div>
                    
                    {/* Progress Bar Line */}
-                   <div className="w-48 h-[2px] bg-green-900/50 rounded-full overflow-hidden relative">
+                   <div className="w-48 h-0.5 bg-green-900/50 rounded-full overflow-hidden relative">
                      <motion.div 
                         layoutId="loader-bar"
                         className="absolute inset-y-0 left-0 bg-green-500 shadow-[0_0_10px_#22c55e]"

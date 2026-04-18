@@ -1,13 +1,5 @@
 import React, { useRef, useState } from "react";
-import { 
-  motion, 
-  useScroll, 
-  useSpring, 
-  useTransform, 
-  useMotionValue, 
-  useMotionTemplate,
-  AnimatePresence
-} from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, useMotionValue, useMotionTemplate, AnimatePresence } from "framer-motion";
 import { GraduationCap, Code2, Calendar, MapPin, Briefcase, Cpu, Hash, Clock, BookOpen, School } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -97,8 +89,8 @@ const EducationTimeline = () => {
     >
       {/* --- BACKGROUND MATRIX EFFECT --- */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-green-900/20 via-transparent to-transparent opacity-50" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-125 bg-linear-to-b from-green-900/20 via-transparent to-transparent opacity-50" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
         
         {/* Flashlight Cursor */}
         <motion.div
@@ -135,7 +127,7 @@ const EducationTimeline = () => {
               viewport={{ once: true }}
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
             >
-              My <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">Evolution</span>
+              My <span className="text-transparent bg-clip-text bg-linear-to-r from-green-400 to-emerald-600">Evolution</span>
             </motion.h2>
         </div>
 
@@ -143,10 +135,10 @@ const EducationTimeline = () => {
         <div className="relative">
           
           {/* THE SPINE */}
-          <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 w-[2px] lg:-translate-x-1/2 bg-white/5 rounded-full overflow-hidden">
+          <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 w-0.5 lg:-translate-x-1/2 bg-white/5 rounded-full overflow-hidden">
              <motion.div 
                style={{ height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]) }}
-               className="absolute top-0 left-0 w-full bg-gradient-to-b from-green-400 via-emerald-500 to-green-600 shadow-[0_0_15px_#22c55e]"
+               className="absolute top-0 left-0 w-full bg-linear-to-b from-green-400 via-emerald-500 to-green-600 shadow-[0_0_15px_#22c55e]"
              />
           </div>
 
@@ -202,16 +194,16 @@ const TimelineItem = ({ data, index }) => {
       )}>
         <div className="flex flex-col gap-2">
            <div className={cn(
-             "text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white/30 to-transparent font-mono select-none",
+             "text-6xl font-bold text-transparent bg-clip-text bg-linear-to-b from-white/30 to-transparent font-mono select-none",
              isEven ? "text-left" : "text-right"
            )}>
              {data.year}
            </div>
            <div className={cn(
-             "h-[1px] bg-green-500/30 w-full relative",
+             "h-px bg-green-500/30 w-full relative",
              isEven ? "origin-left" : "origin-right"
            )}>
-              <div className={cn("absolute top-[-2px] w-1 h-1 bg-green-500", isEven ? "right-0" : "left-0")}/>
+              <div className={cn("absolute -top-0.5 w-1 h-1 bg-green-500", isEven ? "right-0" : "left-0")}/>
            </div>
         </div>
       </div>
@@ -267,7 +259,7 @@ const EducationCard = ({ data }) => {
             
             {/* 1. OUTER GLOW (The Aura) */}
             <div 
-              className="absolute inset-0 bg-green-500/40 blur-[40px] opacity-0 group-hover/card:opacity-60 transition-opacity duration-500" 
+              className="absolute inset-0 bg-green-500/40 blur-2xl opacity-0 group-hover/card:opacity-60 transition-opacity duration-500" 
               style={{ clipPath: "polygon(0 0, 92% 0, 100% 15%, 100% 100%, 8% 100%, 0 85%)" }}
             />
 
@@ -291,7 +283,7 @@ const EducationCard = ({ data }) => {
                     }}
                 >
                     {/* The Grid Texture inside the spotlight */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-[size:20px_20px]" />
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-size-[20px_20px]" />
                 </motion.div>
 
 
@@ -299,7 +291,7 @@ const EducationCard = ({ data }) => {
                 {/* Base Border */}
                 <div className="absolute inset-0 bg-white/5 pointer-events-none" />
                 {/* Active Border (Bright Green on Hover) */}
-                <div className="absolute inset-[1px] bg-[#0a0d0b] pointer-events-none z-0" 
+                <div className="absolute inset-px bg-[#0a0d0b] pointer-events-none z-0" 
                      style={{ clipPath: "polygon(0 0, 92% 0, 100% 15%, 100% 100%, 8% 100%, 0 85%)" }} 
                 />
                 
@@ -311,7 +303,7 @@ const EducationCard = ({ data }) => {
                             animate={{ top: "200%", opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 1.5, ease: "linear", repeat: Infinity, repeatDelay: 1 }}
-                            className="absolute left-0 right-0 h-[2px] bg-green-400 shadow-[0_0_20px_2px_#4ade80] z-20 pointer-events-none"
+                            className="absolute left-0 right-0 h-0.5 bg-green-400 shadow-[0_0_20px_2px_#4ade80] z-20 pointer-events-none"
                         />
                     )}
                 </AnimatePresence>
@@ -360,7 +352,7 @@ const EducationCard = ({ data }) => {
                     {/* Footer Tags */}
                     <div className="flex flex-wrap gap-2 pt-4 border-t border-dashed border-white/10 group-hover/card:border-green-500/30 transition-colors">
                         {data.tags.map((tag) => (
-                            <span key={tag} className="flex items-center gap-1 px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-slate-400 bg-white/5 border border-white/5 group-hover/card:border-green-500/30 group-hover/card:text-green-300 hover:!bg-green-500 hover:!text-black transition-all cursor-crosshair">
+                            <span key={tag} className="flex items-center gap-1 px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-slate-400 bg-white/5 border border-white/5 group-hover/card:border-green-500/30 group-hover/card:text-green-300 hover:bg-green-500! hover:text-black! transition-all cursor-crosshair">
                                 <Hash className="w-2 h-2 opacity-50" />
                                 {tag}
                             </span>
@@ -370,12 +362,12 @@ const EducationCard = ({ data }) => {
 
                 {/* Decorative Tech Markers (Corner Pieces) */}
                 <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none opacity-50 group-hover/card:opacity-100 transition-opacity">
-                    <div className="absolute top-0 right-[8%] w-[20px] h-[2px] bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
-                    <div className="absolute top-0 right-0 w-[2px] h-[10px] bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
+                    <div className="absolute top-0 right-[8%] w-5 h-0.5 bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
+                    <div className="absolute top-0 right-0 w-0.5 h-2.5 bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
                 </div>
                 <div className="absolute bottom-0 left-0 w-8 h-8 pointer-events-none opacity-50 group-hover/card:opacity-100 transition-opacity">
-                    <div className="absolute bottom-0 left-[8%] w-[20px] h-[2px] bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
-                    <div className="absolute bottom-0 left-0 w-[2px] h-[10px] bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
+                    <div className="absolute bottom-0 left-[8%] w-5 h-0.5 bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
+                    <div className="absolute bottom-0 left-0 w-0.5 h-2.5 bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
                 </div>
             </div>
         </div>

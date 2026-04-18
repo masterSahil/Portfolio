@@ -1,29 +1,7 @@
 import React, { useRef, useState } from "react";
+import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { 
-  motion, 
-  useMotionTemplate, 
-  useMotionValue, 
-  useSpring, 
-  useTransform 
-} from "framer-motion";
-import { 
-  Code2, 
-  Server, 
-  Database, 
-  Cpu, 
-  Layers, 
-  Palette, 
-  Terminal,
-  Smartphone,
-  FileCode2,
-  FileJson,
-  Globe,
-  GitBranch,
-  Flame,
-  Send,
-  RefreshCcw,
-  Triangle,
-  Monitor
+  Code2, Server, Database, Cpu, Layers, Palette, Terminal, Smartphone, FileCode2, FileJson, Globe,GitBranch, Flame, Send, RefreshCcw, Triangle, Monitor
 } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -79,8 +57,8 @@ const DigitalArsenal = () => {
       className="relative w-full bg-[#020602] py-24 overflow-hidden group perspective-2000"
     >
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-green-900/20 via-transparent to-transparent opacity-50" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-125 bg-linear-to-b from-green-900/20 via-transparent to-transparent opacity-50" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
@@ -114,7 +92,7 @@ const DigitalArsenal = () => {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
           >
-            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-600">Digital Arsenal</span>
+            My <span className="text-transparent bg-clip-text bg-linear-to-r from-green-300 to-emerald-600">Digital Arsenal</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -195,7 +173,7 @@ const Hexagon3D = ({ tech, index }) => {
         <div 
           className={cn(
             "absolute inset-0 bg-[#0f1210] transition-all duration-300", 
-            "border-[2px]",
+            "border-2",
             // Apply Green Border if Tapped OR Hovered
             (isTapped ? "border-green-500 shadow-[0_0_40px_rgba(34,197,94,0.4)]" : "border-white/5 group-hover/hex:border-green-500 group-hover/hex:shadow-[0_0_40px_rgba(34,197,94,0.4)]"),
             "flex flex-col items-center justify-center z-10 shadow-lg"
@@ -207,14 +185,14 @@ const Hexagon3D = ({ tech, index }) => {
         >
           {/* Spotlight Gradient - Visible if Tapped OR Hovered */}
           <div className={cn(
-            "absolute inset-0 bg-gradient-to-br from-green-500/0 via-green-500/0 to-green-500/20 transition-opacity duration-500",
+            "absolute inset-0 bg-linear-to-br from-green-500/0 via-green-500/0 to-green-500/20 transition-opacity duration-500",
             (isTapped ? "opacity-100" : "opacity-0 group-hover/hex:opacity-100")
           )} />
 
           {/* Icon Spin - Spin if Tapped OR Hovered */}
           <div className={cn(
             "mb-3 transition-transform duration-500",
-            (isTapped ? "rotate-[360deg] scale-110" : "group-hover/hex:rotate-[360deg] group-hover/hex:scale-110")
+            (isTapped ? "rotate-360 scale-110" : "group-hover/hex:rotate-360 group-hover/hex:scale-110")
           )}>
             <tech.icon className={cn("w-8 h-8 md:w-10 md:h-10", tech.color)} />
           </div>
@@ -232,16 +210,16 @@ const Hexagon3D = ({ tech, index }) => {
           "absolute inset-0 z-0 transition-opacity duration-300",
           (isTapped ? "opacity-100" : "opacity-30 group-hover/hex:opacity-100")
         )}>
-           <div className="absolute top-1/2 left-1/2 w-[120%] h-[2px] bg-green-500/30 -translate-x-1/2 -translate-y-1/2 rotate-[-60deg]" />
-           <div className="absolute top-1/2 left-1/2 w-[120%] h-[2px] bg-green-500/30 -translate-x-1/2 -translate-y-1/2 rotate-[60deg]" />
-           <div className="absolute top-1/2 left-1/2 w-[120%] h-[2px] bg-green-500/30 -translate-x-1/2 -translate-y-1/2 rotate-[0deg]" />
+           <div className="absolute top-1/2 left-1/2 w-[120%] h-0.5 bg-green-500/30 -translate-x-1/2 -translate-y-1/2 rotate-[-60deg]" />
+           <div className="absolute top-1/2 left-1/2 w-[120%] h-0.5 bg-green-500/30 -translate-x-1/2 -translate-y-1/2 rotate-60" />
+           <div className="absolute top-1/2 left-1/2 w-[120%] h-0.5 bg-green-500/30 -translate-x-1/2 -translate-y-1/2 rotate-0" />
         </div>
 
         {/* Tooltip - Visible if Tapped OR Hovered */}
         <div 
           className={cn(
             "absolute -top-12 left-1/2 -translate-x-1/2 transition-all duration-300 transform z-30 pointer-events-none",
-            (isTapped ? "opacity-100 -translate-y-2" : "opacity-0 -translate-y-0 group-hover/hex:opacity-100 group-hover/hex:-translate-y-2")
+            (isTapped ? "opacity-100 -translate-y-2" : "opacity-0 translate-y-0 group-hover/hex:opacity-100 group-hover/hex:-translate-y-2")
           )}
           style={{ transform: "translateZ(50px)" }}
         >

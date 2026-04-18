@@ -182,7 +182,7 @@ export default function ChatWidget() {
                                 ))}
 
                                 {isLoading && (
-                                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start ml-11 max-w-[250px]">
+                                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start ml-11 max-w-62.5">
                                         <div className="bg-[#111] border border-white/10 px-4 py-3 rounded-2xl rounded-tl-none flex flex-col gap-2.5 w-full">
                                             
                                             {/* Changing text & your original bouncing dots */}

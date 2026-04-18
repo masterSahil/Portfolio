@@ -51,10 +51,10 @@ const NotFound = () => {
       {/* --- Dynamic Background & Flashlight Effect --- */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Ambient Top Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-green-900/20 via-transparent to-transparent opacity-50" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-125 bg-linear-to-b from-green-900/20 via-transparent to-transparent opacity-50" />
         
         {/* Tech Grid Texture */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
         
         {/* Interactive Flashlight (Works on Hover & Touch) */}
         <motion.div
@@ -86,7 +86,7 @@ const NotFound = () => {
           <div className="absolute inset-0 bg-green-500/20 blur-3xl rounded-full" />
           
           <div className="relative z-10 flex items-center justify-center">
-            <h1 className="text-[8rem] md:text-[12rem] font-bold text-transparent bg-clip-text bg-gradient-to-b from-green-300 to-green-900/20 tracking-tighter leading-none select-none">
+            <h1 className="text-[8rem] md:text-[12rem] font-bold text-transparent bg-clip-text bg-linear-to-b from-green-300 to-green-900/20 tracking-tighter leading-none select-none">
               404
             </h1>
             

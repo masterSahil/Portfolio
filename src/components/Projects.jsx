@@ -1,16 +1,6 @@
 import React, { useState } from "react";
-import { 
-  motion, 
-  useMotionTemplate, 
-  useMotionValue, 
-  AnimatePresence 
-} from "framer-motion";
-import { 
-  ArrowUpRight, 
-  Github, 
-  Terminal,
-  Sparkles
-} from "lucide-react";
+import { motion, useMotionTemplate, useMotionValue, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Github, Terminal, Sparkles } from "lucide-react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -31,6 +21,26 @@ import img6 from '../assets/Image/Home/Projects/prj6.png'
 const PROJECTS = [
   {
     id: 1,
+    title: "Corporate Software System",
+    desc: "A powerful internal system to manage employees, rewards, and company operations in one place.",
+    image: img1, 
+    tech: ["React", "Node", "Razorpay", "MongoDB"],
+    category: "Full Stack",
+    repoUrl: "https://github.com/masterSahil/Corporate-Landing-page",
+    liveUrl: "https://corporate-master.vercel.app/"
+  },
+  {
+    id: 2,
+    title: "React Collection",
+    desc: "A curated library of modular React components.",
+    image: img5,
+    tech: ["React", "Tailwind", "Redux"],
+    category: "Frontend",
+    repoUrl: "https://github.com/masterSahil/React-Projects",
+    liveUrl: "https://github.com/masterSahil/React-Projects"
+  },
+  {
+    id: 3,
     title: "Secure Credentials Vault",
     desc: "A secure web-based vault for credentials storage.",
     image: img2,
@@ -38,26 +48,6 @@ const PROJECTS = [
     category: "Full Stack",
     repoUrl: "https://github.com/masterSahil/Credentials",
     liveUrl: "https://credentials-bay.vercel.app/"
-  },
-  {
-    id: 2,
-    title: "AI Image Gen",
-    desc: "Text-to-image engine using Stable Diffusion.",
-    image: img1,
-    tech: ["React", "Vite", "HuggingFace"],
-    category: "AI",
-    repoUrl: "https://github.com/masterSahil/text-to-img-ai",
-    liveUrl: "https://text-to-img-ai-cyan.vercel.app/"
-  },
-  {
-    id: 3,
-    title: "Chatbot Core",
-    desc: "Real-time conversational agent with memory.",
-    image: img3,
-    tech: ["React", "Gemini API", "Theme UI"],
-    category: "AI",
-    repoUrl: "https://github.com/masterSahil/Chatbot-main",
-    liveUrl: "https://chatbot-main-nine.vercel.app/"
   },
   {
     id: 4,
@@ -71,13 +61,13 @@ const PROJECTS = [
   },
   {
     id: 5,
-    title: "React Collection",
-    desc: "A curated library of modular React components.",
-    image: img5,
-    tech: ["React", "Tailwind", "Redux"],
-    category: "Frontend",
-    repoUrl: "https://github.com/masterSahil/React-Projects",
-    liveUrl: "https://github.com/masterSahil/React-Projects"
+    title: "Chatbot Core",
+    desc: "Real-time conversational agent with memory.",
+    image: img3,
+    tech: ["React", "Gemini API", "Theme UI"],
+    category: "AI",
+    repoUrl: "https://github.com/masterSahil/Chatbot-main",
+    liveUrl: "https://chatbot-main-nine.vercel.app/"
   },
   {
     id: 6,
@@ -135,7 +125,7 @@ const RecentProjects = () => {
 
       {/* --- STATIC BACKGROUND PATTERN --- */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -158,7 +148,7 @@ const RecentProjects = () => {
               viewport={{ once: true }}
               className="text-4xl md:text-6xl font-bold text-white tracking-tight"
             >
-              Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">Deployments</span>
+              Selected <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-cyan-500">Deployments</span>
             </motion.h2>
           </div>
 
@@ -225,7 +215,7 @@ const ProjectCard = ({ project, isFocused, setFocused }) => {
       onMouseMove={handleMouseMove}
       onClick={() => setFocused(isFocused ? null : project.id)}
       onMouseLeave={() => setFocused(null)}
-      className="group relative h-[400px] rounded-2xl bg-[#0a0d0b] border border-white/10 overflow-hidden cursor-pointer"
+      className="group relative h-100 rounded-2xl bg-[#0a0d0b] border border-white/10 overflow-hidden cursor-pointer"
     >
       
       {/* 1. LOCAL SPOTLIGHT (Card Hover) */}
@@ -252,7 +242,7 @@ const ProjectCard = ({ project, isFocused, setFocused }) => {
              isFocused ? "scale-110 blur-[2px]" : "group-hover:scale-110 group-hover:blur-[2px]"
            )}
          />
-         <div className="absolute inset-0 bg-gradient-to-t from-[#020602] via-[#020602]/80 to-transparent opacity-90 transition-opacity duration-500" />
+         <div className="absolute inset-0 bg-linear-to-t from-[#020602] via-[#020602]/80 to-transparent opacity-90 transition-opacity duration-500" />
       </div>
 
       {/* 3. CONTENT CONTAINER */}

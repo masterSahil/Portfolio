@@ -32,8 +32,8 @@ const Footer = () => {
       
       {/* --- Background Grid --- */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(0,255,100,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,100,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem]" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-green-500/10 rounded-full blur-[100px] opacity-20" />
+        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(0,255,100,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,100,0.03)_1px,transparent_1px)] bg-size-[2rem_2rem]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-150 h-75 bg-green-500/10 rounded-full blur-[100px] opacity-20" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
@@ -100,7 +100,7 @@ const Footer = () => {
                 brandColor="hover:bg-[#333] hover:border-[#333] active:bg-[#333] active:border-[#333] active:text-white"
               >
                 <div className="w-48 bg-[#0d1117] rounded-xl overflow-hidden border border-white/10 shadow-xl">
-                    <div className="h-12 bg-gradient-to-r from-slate-800 to-[#333] relative"></div>
+                    <div className="h-12 bg-linear-to-r from-slate-800 to-[#333] relative"></div>
                     <div className="p-3 relative -mt-6">
                       <div className="w-10 h-10 rounded-full bg-black border-2 border-[#0d1117] flex items-center justify-center mb-2 relative z-10">
                           <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="Profile" className="w-6 h-6 rounded-full" />
@@ -167,7 +167,7 @@ const Footer = () => {
               >
                   <div className="w-60 bg-[#1a1d1b] rounded-xl overflow-hidden border border-white/10 shadow-xl">
                     {/* Banner */}
-                    <div className="h-12 bg-gradient-to-r from-green-600 to-emerald-400 relative"></div>
+                    <div className="h-12 bg-linear-to-r from-green-600 to-emerald-400 relative"></div>
                     
                     {/* Content */}
                     <div className="p-3 relative -mt-6">
