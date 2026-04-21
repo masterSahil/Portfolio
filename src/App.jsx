@@ -7,6 +7,7 @@ import ContactPage from './pages/Contact';
 import NotFoundPage from './pages/NotFoundPage';
 import PageLoader from './components/Loader';
 import ChatWidget from './components/ChatWidget';
+import { useLocation } from "react-router-dom";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,11 +26,23 @@ function App() {
     }
   }, []);
 
+  function ScrollToTop() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  }
+
   return (
     <>
       <PageLoader isLoading={isLoading} />
 
       <BrowserRouter>
+        <ScrollToTop />
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
