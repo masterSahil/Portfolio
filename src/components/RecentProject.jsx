@@ -34,7 +34,7 @@ const PROJECTS = [
     tech: ["React", "Node", "Razorpay", "MongoDB"],
     category: "Full Stack",
     repoUrl: "https://github.com/masterSahil/Corporate-Landing-page",
-    liveUrl: "https://corporate-master.vercel.app/"
+    liveUrl: "https://corporates.app/"
   },
   {
     id: 2,
