@@ -17,9 +17,9 @@ const SERVICES = [
     icon: Monitor,
     bgIcon: Globe,
     themeColor: "text-green-400",
-    themeBorder: "group-hover:border-green-500/50",
-    themeShadow: "group-hover:shadow-[0_0_40px_rgba(74,222,128,0.2)]",
-    themeBg: "group-hover:bg-green-500",
+    themeBorder: "group-hover:border-green-500/50 group-active:border-green-500/50 group-focus:border-green-500/50",
+    themeShadow: "group-hover:shadow-[0_0_40px_rgba(74,222,128,0.2)] group-active:shadow-[0_0_40px_rgba(74,222,128,0.2)] group-focus:shadow-[0_0_40px_rgba(74,222,128,0.2)]",
+    themeBg: "group-hover:bg-green-500 group-active:bg-green-500 group-focus:bg-green-500",
     features: [
       { icon: Code2, txt: "React" },
       { icon: Database, txt: "Node" },
@@ -33,9 +33,9 @@ const SERVICES = [
     icon: BrainCircuit,
     bgIcon: Cpu,
     themeColor: "text-emerald-400",
-    themeBorder: "group-hover:border-emerald-500/50",
-    themeShadow: "group-hover:shadow-[0_0_40px_rgba(16,185,129,0.2)]",
-    themeBg: "group-hover:bg-emerald-500",
+    themeBorder: "group-hover:border-emerald-500/50 group-active:border-emerald-500/50 group-focus:border-emerald-500/50",
+    themeShadow: "group-hover:shadow-[0_0_40px_rgba(16,185,129,0.2)] group-active:shadow-[0_0_40px_rgba(16,185,129,0.2)] group-focus:shadow-[0_0_40px_rgba(16,185,129,0.2)]",
+    themeBg: "group-hover:bg-emerald-500 group-active:bg-emerald-500 group-focus:bg-emerald-500",
     features: [
       { icon: Cpu, txt: "Gen AI" },
       { icon: BrainCircuit, txt: "OpenAI" },
@@ -49,9 +49,9 @@ const SERVICES = [
     icon: Smartphone,
     bgIcon: Smartphone,
     themeColor: "text-teal-400",
-    themeBorder: "group-hover:border-teal-500/50",
-    themeShadow: "group-hover:shadow-[0_0_40px_rgba(20,184,166,0.2)]",
-    themeBg: "group-hover:bg-teal-500",
+    themeBorder: "group-hover:border-teal-500/50 group-active:border-teal-500/50 group-focus:border-teal-500/50",
+    themeShadow: "group-hover:shadow-[0_0_40px_rgba(20,184,166,0.2)] group-active:shadow-[0_0_40px_rgba(20,184,166,0.2)] group-focus:shadow-[0_0_40px_rgba(20,184,166,0.2)]",
+    themeBg: "group-hover:bg-teal-500 group-active:bg-teal-500 group-focus:bg-teal-500",
     features: [
       { icon: Code2, txt: "React Native" },
       { icon: Smartphone, txt: "Expo" },
@@ -139,8 +139,9 @@ const ServiceCard = ({ service, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      // FIX: Changed h-[420px] to min-h-[400px] h-auto to prevent overflow on mobile
-      className="group relative w-full h-auto min-h-95 md:h-105"
+      // FIX: Added outline-none and tabIndex={0} to trigger active/focus state on mobile tap seamlessly
+      className="group relative w-full h-auto min-h-95 md:h-105 outline-none cursor-pointer md:cursor-auto"
+      tabIndex={0}
     >
       <div className={cn(
         "relative h-full w-full rounded-2xl bg-[#0f1210] border px-6 py-8 md:p-8 flex flex-col justify-between transition-all duration-300 overflow-hidden",
@@ -152,8 +153,7 @@ const ServiceCard = ({ service, index }) => {
         <div className="absolute inset-0 bg-linear-to-br from-transparent to-black/80 pointer-events-none" />
         
         {/* Giant Abstract Icon Background */}
-        <div className="absolute -right-12 -top-12 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-           {/* FIX: Ensure icon is treated as a component */}
+        <div className="absolute -right-12 -top-12 opacity-5 group-hover:opacity-10 group-active:opacity-10 group-focus:opacity-10 transition-opacity duration-500">
            <service.bgIcon className="w-48 h-48 md:w-64 md:h-64 text-white rotate-12" />
         </div>
 
@@ -164,12 +164,12 @@ const ServiceCard = ({ service, index }) => {
             "w-14 h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center mb-6 md:mb-8 transition-all duration-300",
             "bg-white/5 border border-white/10",
             service.themeBg,
-            "group-hover:scale-110"
+            "group-hover:scale-110 group-active:scale-110 group-focus:scale-110"
           )}>
             <service.icon className={cn(
               "w-7 h-7 md:w-8 md:h-8 transition-colors duration-300",
               service.themeColor,
-              "group-hover:text-black"
+              "group-hover:text-black group-active:text-black group-focus:text-black"
             )} />
           </div>
 
@@ -183,11 +183,12 @@ const ServiceCard = ({ service, index }) => {
         <div className="relative z-10 pt-6 md:pt-8 mt-auto">
            <div className="flex flex-wrap gap-2 md:gap-3">
              {service.features.map((feature, i) => {
-               const Icon = feature.icon; // Extract icon component for safe rendering
+               const Icon = feature.icon;
                return (
                  <div key={i} className={cn(
                    "flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-xs font-bold uppercase tracking-wider text-slate-300 transition-colors",
-                   `group-hover:border-${service.themeColor.split('-')[1]}-500/30 group-hover:text-white`
+                   `group-hover:border-${service.themeColor.split('-')[1]}-500/30 group-active:border-${service.themeColor.split('-')[1]}-500/30 group-focus:border-${service.themeColor.split('-')[1]}-500/30`,
+                   "group-hover:text-white group-active:text-white group-focus:text-white"
                  )}>
                    <Icon className={cn("w-3 h-3", service.themeColor)} />
                    {feature.txt}
@@ -198,7 +199,7 @@ const ServiceCard = ({ service, index }) => {
         </div>
 
         {/* --- Interactive Gradient Overlay --- */}
-        <div className="absolute inset-0 bg-linear-to-br from-green-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-br from-green-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 group-focus:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
       </div>
     </motion.div>
